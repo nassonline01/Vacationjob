@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VacationJobs</title>
+    <style>
+        body {
+            height: 100%;
+            margin: 0;
+            overflow-x: hidden; /* Hide horizontal scroll */
+            box-sizing: border-box; /* Include padding and borders in width/height */
+        }
+
+        .background-container {
+            position: relative; /* To allow absolute positioning of the button */
+            width: 100vw; /* Half of the viewport width */
+            height: 85vh; /* Half of the viewport height */
+            background-image: url('/static/Images/HomeImage1.jpeg');
+            background-size: cover; /* Ensures the image covers the container */
+            background-position: center; /* Centers the image within the container */
+            background-repeat: no-repeat;
+           
+           
+        }
+        .logo {
+            background-image: url('/static/Images/nassonline.jpg'); /* Replace with your logo path */
+            background-size: contain; /* Ensures the logo fits inside the div */
+            background-repeat: no-repeat; /* Prevents the logo from repeating */
+            width: 15%; /* Adjust the width of the logo */
+            height: 20%; /* Adjust the height of the logo */
+            position: absolute; /* Absolute positioning inside .background-container */
+            top: 25%; /* 50px margin from the top */
+            left: 5%; /* 10% margin from the left side of the container */
+        }
+
+        .nav-container {
+            position: absolute;
+            top: 20px; /* 20px from the top of the container */
+            left: 56%; /* Center horizontally */
+            height: 50px;
+            transform: translateX(-50%); /* Shift the button by half its width for perfect centering */
+            display: flex; /* Use flexbox to arrange items horizontally */
+            gap: 25px; /* Space between the buttons */
+
+        }
+        .btn {
+            background-color: DodgerBlue; /* Blue background */
+            border-radius: 8px; /* Remove borders */
+            border-color: DodgerBlue; ;
+            color: white; /* White text */
+            padding: 12px 16px; /* Some padding */
+            font-size: 15px; /* Set a font size */
+            cursor: pointer; /* Mouse pointer on hover */
+            display: flex;
+            align-items: center;
+            
+        }
+        .btn:hover {
+            background-color: RoyalBlue;
+        }
+        .background-container1 {
+            /* background-color: blueviolet; */
+            background-color:whitesmoke;
+            width: 100vw; /* Full viewport width */
+            height: 120vh; /* 30% of the viewport height */
+            background-size: cover; /* Ensures the image covers the container */
+            background-position: center; /* Centers the image within the container */
+            background-repeat: no-repeat;
+            overflow: hidden; /* Prevent content from overflowing outside the container */
+        }
+        .images1{
+            background-image: url('/static/Images/Image 2.jpg');
+            width: 40vw; /* Full viewport width */
+            height: 50vh; /* 30% of the viewport height */
+            background-size: cover; /* Ensures the image covers the container */
+            background-position: center; /* Centers the image within the container */
+            background-repeat: no-repeat;
+            position: absolute; /* Position it absolutely inside the parent container */
+            right: 70px; /* Align to the right */
+            top: 115%; /* Set the top margin to 20px */
+            transform: translateY(20%); /* Adjust for a slight shift downward (customizable) */
+            border-radius: 20px; /* Rounded corners */
+        }
+        .gap {
+            width: 100vw;
+            height: 10vh; /* Adjust this height for gap size */
+            background-color:white; /* The black gap */
+        }
+        p {
+            font-weight: bold; /* Makes the text bold */
+            font-size: 23px;
+            margin-left: 65px; /* Sets the left margin to 20px */
+            margin-top: 90px;  /* Sets the top margin to 50px */
+            line-height: 1.5; /* Optional: Adjusts line spacing */
+            position: relative; /* Ensure it stays within the parent container */
+        }
+        .images2{
+            background-image: url('/static/Images/Image3.jpg');
+            width: 40vw; /* Full viewport width */
+            height: 55vh; /* 30% of the viewport height */
+            background-size: cover; /* Ensures the image covers the container */
+            background-position: center; /* Centers the image within the container */
+            background-repeat: no-repeat;
+            position: absolute; /* Position it absolutely inside the parent container */
+            left: 60px; /* Align to the right */
+            top: 150%; /* Set the top margin to 20px */
+            transform: translateY(20%); /* Adjust for a slight shift downward (customizable) */
+            border-radius: 20px; /* Rounded corners */
+        }
+        .second-paragraph  {
+            font-weight: bold; /* Makes the text bold */
+            font-size: 23px;
+            margin-left: 50%; /* Sets the left margin to 20px */
+            margin-right: 50px;
+            margin-top: 16%;  /* Sets the top margin to 50px */
+            line-height: 1.5; /* Optional: Adjusts line spacing */
+            position: relative; /* Ensure it stays within the parent container */
+            width: calc(100vw - 60px); /* Ensures the paragraph fits within the viewport */
+        }
+        .title{
+            font-weight: bold; /* Makes the text bold */
+            font-size: 30px;
+            margin-left: 24%; /* Sets the left margin to 20px */
+            margin-top: 40px;  /* Sets the top margin to 50px */
+            line-height: 1.5; /* Optional: Adjusts line spacing */
+            position: relative; /* Ensure it stays within the parent container */
+        }
+        .p1{
+            font-weight: bold; /* Makes the text bold */
+            font-size: 23px;
+            margin-left: 70px; /* Sets the left margin to 20px */
+            margin-top: 30px;  /* Sets the top margin to 50px */
+            line-height: 1.5; /* Optional: Adjusts line spacing */
+            position: relative; /* Ensure it stays within the parent container */
+        }
+        .vacation-jobs {
+            font-family: 'Cursive'; /* Change to your desired font */
+            font-size: 36px; /* Adjust the size as needed */
+            font-weight: bold; /* Makes the text bold */
+            margin-right: 10px; /* Space between the span and the rest of the text */
+        }
+        .background-container2{
+            background-image: url('/static/Images/Image11.jpg');
+            width: 100vw; /* Full viewport width */
+            height: 80vh; /* 30% of the viewport height */
+            background-size: cover; /* Ensures the image covers the container */
+            background-position: center; /* Centers the image within the container */
+            background-repeat: no-repeat;
+            overflow: hidden; /* Prevent content from overflowing outside the container */
+        }
+        .card{
+            background-color: rgb(9, 9, 9);
+            width: 20vw; /* Full viewport width */
+            height: 28vh; /* 30% of the viewport height */
+            background-size: cover; /* Ensures the image covers the container */
+            background-position: center; /* Centers the image within the container */
+            background-repeat: no-repeat;
+            overflow: hidden; /* Prevent content from overflowing outside the container */
+            margin-left: 76%;
+            margin-top: -15%;
+            border-radius: 20px; /* Rounded corners */
+        }
+        .card1{
+            background-color: rgb(9, 9, 9);
+            width: 20vw; /* Full viewport width */
+            height: 28vh; /* 30% of the viewport height */
+            background-size: cover; /* Ensures the image covers the container */
+            background-position: center; /* Centers the image within the container */
+            background-repeat: no-repeat;
+            overflow: hidden; /* Prevent content from overflowing outside the container */
+            margin-left: 60%;
+            margin-top: 2%;
+            border-radius: 20px; /* Rounded corners */
+        }
+        .background-container3{
+            background-color: rgb(58, 7, 7);
+            width: 100vw; /* Full viewport width */
+            height: 100vh; /* 30% of the viewport height */
+            background-size: cover; /* Ensures the image covers the container */
+            background-position: center; /* Centers the image within the container */
+            background-repeat: no-repeat;
+            overflow: hidden; /* Prevent content from overflowing outside the container */
+            
+        }
+        .images6{
+            background-image: url('/static/Images/Image6.jpg');
+            width: 35vw; /* Full viewport width */
+            height: 50vh; /* 30% of the viewport height */
+            background-size: cover; /* Ensures the image covers the container */
+            background-position: center; /* Centers the image within the container */
+            background-repeat: no-repeat;
+            position: absolute; /* Position it absolutely inside the parent container */
+            left: 60px; /* Align to the right */
+            top: 325%; /* Set the top margin to 20px */
+            transform: translateY(20%); /* Adjust for a slight shift downward (customizable) */
+            border-radius: 20px; /* Rounded corners */
+        }
+        .card2{
+            background-color: white;
+            width: 20vw; /* Full viewport width */
+            height: 25vh; /* 30% of the viewport height */
+            background-size: cover; /* Ensures the image covers the container */
+            background-position: center; /* Centers the image within the container */
+            background-repeat: no-repeat;
+            overflow: hidden; /* Prevent content from overflowing outside the container */
+            margin-left: 45%;
+            margin-top: 6%;
+            border-radius: 20px; /* Rounded corners */
+        }
+        .cards{
+            background-color: white;
+            width: 20vw; /* Full viewport width */
+            height: 25vh; /* 30% of the viewport height */
+            background-size: cover; /* Ensures the image covers the container */
+            background-position: center; /* Centers the image within the container */
+            background-repeat: no-repeat;
+            overflow: hidden; /* Prevent content from overflowing outside the container */
+            margin-left: 75%;
+            margin-top: 16%;
+            border-radius: 20px; /* Rounded corners */ 
+        }
+       
+        
+        .tag{
+            background-color: rgb(26, 142, 119);
+            width: 90vw; /* Full viewport width */
+            height: 8vh; /* 30% of the viewport height */
+            margin-left: 4%;
+            margin-right: 4%;
+            background-size: cover; /* Ensures the image covers the container */
+            background-position: center; /* Centers the image within the container */
+            background-repeat: no-repeat;
+            overflow: hidden; /* Prevent content from overflowing outside the container */
+        }
+        .images12{
+            background-image: url('/static/Images/Image12.jpg');
+            width: 60vw; /* Full viewport width */
+            height: 70vh; /* 30% of the viewport height */
+            background-size: cover; /* Ensures the image covers the container */
+            background-position: center; /* Centers the image within the container */
+            background-repeat: no-repeat;
+            position: absolute; /* Position it absolutely inside the parent container */
+            left: 20%; /* Align to the right */
+            top: 680%; /* Set the top margin to 20px */
+            transform: translateY(20%); /* Adjust for a slight shift downward (customizable) */
+            border-radius: 20px; /* Rounded corners */
+        }
+        .ptag{
+            font-size: 20px;
+            margin-left: 16%;
+            color:black;
+            line-height: 35px;
+        }
+        .images10{
+            background-image: url('/static/Images/Image10.jpg');
+            width: 80vw; /* Full viewport width */
+            height: 70vh; /* 30% of the viewport height */
+            background-size: cover; /* Ensures the image covers the container */
+            background-position: center; /* Centers the image within the container */
+            background-repeat: no-repeat;
+            position: absolute; /* Position it absolutely inside the parent container */
+            left: 10%; /* Align to the right */
+            top: 1080%; /* Set the top margin to 20px */
+            transform: translateY(20%); /* Adjust for a slight shift downward (customizable) */
+            border-radius: 20px; /* Rounded corners */
+        }
+        .footer{
+            background-color: rgb(5, 82, 64);
+            margin-top: 39%;
+            width: 100vw; /* Full viewport width */
+            height: 40vh; /* 30% of the viewport height */
+            background-size: cover; /* Ensures the image covers the container */
+            background-position: center; /* Centers the image within the container */
+            background-repeat: no-repeat;
+            overflow: hidden; /* Prevent content from overflowing outside the container */
+        }
+        .logos{
+            background-image: url('/static/Images/nassonline.jpg'); /* Replace with your logo path */
+            background-size: contain; /* Ensures the logo fits inside the div */
+            background-repeat: no-repeat; /* Prevents the logo from repeating */
+            width: 11%; /* Adjust the width of the logo */
+            height: 15%; /* Adjust the height of the logo */
+            position: absolute; /* Absolute positioning inside .background-container */
+            top: 1180%; /* 50px margin from the top */
+            left: 5%; /* 10% margin from the left side of the container */
+           
+        }
+        .logo1{
+            position: absolute;
+            left: 72%;
+            padding-top: 7%;
+            
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Facebook -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- instagram -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Youtube -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- linkedin -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Map -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Twitter -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="background-container">
+        <div class="logo"></div>
+        <div class="nav-container">
+            <button class="btn"><i class="fa fa-home"></i> Home</button>
+            <a href="login" class="btn"><i class="fa fa-home"></i> Login</a>
+            <button class="btn"><i class="fa fa-home"></i> Support</button>
+            <button class="btn"><i class="fa fa-home"></i> About Us</button>
+            <button class="btn"><i class="fa fa-home"></i> Contact</button>
+        </div>
+    </div>
+    <div class="gap"></div>
+    <div class="background-container1">
+        <div class="images1"></div>
+        <p class="title"><span class="vacation-jobs">VACATION JOBS</span>From NASS ONLINE PRACTISE PVT LTD.</p>
+        <p class="p1"> " The best way for students to earn an income. "</p>
+        <p> " Balancing a vacation job with studies is a responsible choice,<br>
+              and it’s great that we are considering this to avoid engaging in<br>
+              illegal activities and earn money legally from this job. "<br>
+        </p>
+        <div class="images2"></div>
+        <p class="second-paragraph"> " A vacation job for students will be a valuable experience<br>
+                that provides students with an opportunity to gain practical <br>
+                work experience, develop new skills. Businesses often need <br>
+                assistance managing their social media accounts. "<br>
+        </p>
+    </div>
+    <div class="gap"></div>
+    <div class="background-container2">
+        <p style="font-weight: bold; font-family: Arial, sans-serif; font-size: 60px;margin-top:30px;margin-left: 28%;">Vacation Jobs</p>
+        <p style="font-weight: bold; font-family: Arial, sans-serif; font-size: 30px;margin-top:-4%;margin-left: 33%;">Social Media Promoter</p>
+        <p style="font-size: 20px;margin-top:2%;margin-left: 29%">" Opportunity to explore potential career paths, build a professional<br> 
+            network, and enhance your resume for future job opportunities. "</p>
+        <div class="card">
+            <p style="font-size: 14px;margin-top:8%;margin-left: 8%;color:whitesmoke">Many businesses require help managing their social media accounts, and if you have expertise in social media, it can be a great vacation job that you can do from anywhere.</p>
+        </div>
+        <div class="card1">
+            <p style="font-size: 14px;margin-top:3%;margin-left: 8%;color:whitesmoke">For students, a social media review writing job can be a creative and dynamic opportunity, involving the creation of captivating content to review products, services, or experiences on various social media platforms.</p>
+        </div>
+    </div>
+    <div class="gap"></div>
+    <div class="background-container3">
+        <div class="images6"></div>
+        <p style="font-weight: bold; font-family: Arial, sans-serif; font-size: 60px;margin-top:30px;margin-left: 55%;color: whitesmoke;">Vacation Jobs</p>
+        <p style="font-weight: bold; font-family: Arial, sans-serif; font-size: 25px;margin-top:-4%;margin-left: 49%;color: whitesmoke;">The ideal way for students to generate income.</p>
+        <p style="font-size: 20px;margin-top:4%;margin-left: 42%;color: whitesmoke;">" We encourage students to earn extra pocket money to meet their needs.A vacation job offers them <br> 
+            a valuable chance to gain hands-on work experience while developing new skills. "</p>
+        <div class="card2">
+            <p style="font-size: 15px;margin-top:10%;margin-left: 6%;color:black">It’s also an opportunity to explore potential career paths, build a professional network, and enhance your resume for future job opportunities.</p>
+        </div>
+         <div class="cards">
+        <p style="font-size: 15px;margin-top:15%;margin-left: 16%;color:black">Additionally, gaining work experience during vacations can provide a competitive edge when entering the job market after completing your studies.</p>
+         </div>
+    </div>
+    <p style="font-weight: bold; font-family: Arial, sans-serif; font-size: 60px;margin-top:30px;margin-left: 38%;color: rgb(228, 17, 17);">What to do?</p>
+    <p style="font-weight: bold; font-family: Arial, sans-serif; font-size: 40px;margin-top:30px;margin-left: centre;color: black;">Follow, Like, share, subscribe & write content in social media and earn money based on your each work.</p>
+    <p style="font-family: Roboto, sans-serif; font-size: 20px; margin-top:30px; color: black; margin-left: 10%; margin-right: 10%;line-height: 40px;">Normally in foreign countries, they promote the students to earn money from part time jobs along with their studies. 
+        Likewise, we promote the students to earn some pocket moneys for their needs.  A vacation job for students will be a valuable experience that provides students with an opportunity to gain practical work experience, develop new skills. 
+        Businesses often need assistance managing their social media accounts. If you have skills in social media, this can be a viable vacation job that you can do remotely. A vacation job as a social media review writer for a student can be a dynamic and creative opportunity. 
+        This role involves crafting engaging and compelling content to review products, services, or experiences on various social media platforms.<br>
+        It’s also an opportunity to explore potential career paths, build a professional network, and enhance your resume for future job opportunities. Additionally, gaining work experience during vacations can provide a competitive edge when entering the job market after completing your studies.</p>
+    <p style="font-family:Roboto,sans-sertif; font-size:20px; margin-top:30px; color: black; margin-left: 10%; margin-right: 55%; line-height: 40px;">Benefits :<br>
+
+        *  Flexible Schedule: Social media activity often allows for flexible working hours, making it suitable for students.<br>
+        
+        *  Creative Outlet: Express creativity through content creation, writing, and visual design.<br>
+        
+        *  Resume Enhancement: Build a portfolio of work that showcases your writing and social media skills, which can be beneficial for future job opportunities.<br>
+        
+        *  Networking Opportunities: Connect with brands, influencers, and followers to build a network within your niche.<br>
+        
+        
+        *  Monetisation Potential: Depending on your reach and influence, there may be opportunities to monetize your social media presence through sponsored content or affiliate marketing.
+    </p>
+    <p style="font-family:Roboto,sans-sertif; font-size:20px; margin-top:-621px; color: black; margin-left: 55%; margin-right: 10%; line-height: 70px;">Skill Developed:<br>
+
+        1.     Writing and Communication Skills<br>
+
+        2.     Content Creation<br>
+
+        3.     Research Skills<br>
+
+        4.     Digital Marketing Awareness<br>
+
+        5.     Time Management<br>
+
+        6.     Analytical Skills<br>
+
+        7.   Networking and Collaboration</p>
+    <div class="gap"></div>
+    <div class="tag"></div>
+    <p style="font-size: 40px;margin-top:-4%;margin-left: 11%;color:black">Team Making has Begun. Wait for the Official Launch!!</p>
+    <div class="images12"></div>
+    <p style="font-family:Roboto,sans-sertif; font-size:45px; margin-top:80vh; color: black; margin-left: 40%; margin-right: 10%;">PROCEDURE</p>
+    <p style="margin-top:3vh; margin-left: 200px;">STEPS TO JOIN AND WORK AS A SOCIAL MEDIA PROMOTER</p>
+    <div class="ptag">
+        1.  Multiple accounts for a person is not allowed and in such cases all the accounts will be blocked and and all income generated will be lost .<br>
+        2.  Click on the link you received.<br>
+        3.  Click proceed.<br>
+        4.  Enter your details.<br>
+        5.  Create an account with Username and Password.<br>
+        6.  Place Order.<br>
+        7.  No payment required.<br>
+        8.  Log in .<br>
+        9.  Click My account and Affiliate.<br>
+        10. Click BECOME AN AFFILIATE.<br>
+        11. Wait for approval (It may take upto one business hour).<br>
+        12. Go down to create LINK FOR MEDIA PROMOTERS.<br>
+        13. See the link in GREEN back ground.<br>
+        14. Copy Link.<br>
+        15. Share with your Friends..<br>
+        16. Just describe the steps to them also.<br>
+    </div>
+    <p style="margin-top:5vh; margin-left: 200px;">HOW TO GET PROMOTIONAL RESOURCES</p>
+    <div class="ptag">
+        1.  Log in and move to affiliate tab<br>
+        2.  Click create links<br>
+        3.  Move to bottom<br>
+        4.  Change the dropdown to ‘Promotions’<br>
+        5.  Click ‘LINK FOR MEDIA PROMOTERS’<br>
+        6.  See the link in GREEN back ground<br>
+        7.  Copy Link<br>
+        8.  Paste the link in new tab<br>
+        9.  Click proceed<br>
+        10. Enter your details<br>
+        11. Place Order<br>
+        12. No payment required<br>
+        13. Repeat the same for other resources also.<br>
+        14. Add one resource at a time.<br>
+    </div>
+    <p style="margin-top:5vh; margin-left: 200px;">HOW TO WRITE PROMOTIONAL CONTENTS</p>
+    <div class="ptag">
+        1.  Go to orders<br>
+        2.  Click view from the list<br>
+        3.  Move down to see the link ‘CLICK HERE TO WRITE THE REVIEW/CONTENT ….<br>
+        4.  Give 5 stars for reviews<br>
+        5.  Add a good positive content<br>
+        6.  For facebook or Instagram, like share and comment<br>
+        7.  For youtube videos, watch, like and subscribe.<br>
+        8.  For android or apple apps download and istall the app and write reviews.<br>
+        9.  One promotional content only be eligible for income, if more promotional contents are submitted for the same resource.<br>
+    </div>
+    <p style="font-weight: bold; font-family: Arial, sans-serif; font-size: 35px;margin-top:30px;margin-left: centre;color: black;">FOLLOW THESE STEPS STRICTLY, ANY ERROR MAY CAUSE LOSE OF INCOME, AND WE ARE NOT LIABLE FOR ANY LOSS.</p>
+    <div class="images10"></div>
+    <div class="footer">
+        <div class="logos"></div>
+        <!-- Socialmedia -->
+        <div class="logo1">
+        <a href="https://www.facebook.com/NassOnlinetvm"><i class="fa fa-facebook-square" style="font-size:26px;color:white;"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://www.instagram.com/nassonlineadme/"><i class="fa fa-instagram" style="font-size:26px;color:white"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://www.youtube.com/@nassonline1857"><i class="fa fa-youtube-play" style="font-size:26px;color:white"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://www.linkedin.com/in/nass-online-trivandrum/"><i class="fa fa-linkedin-square" style="font-size:26px;color:white"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://www.google.com/maps/place/NASS+ONLINE+PRACTISE+PVT+LTD"><i class="fa fa-map-marker" style="font-size:26px;color:white"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="https://x.com/NassOnline"><i class="fa fa-twitter" style="font-size:26px;color:white"></i></a>
+        </div>
+        <p style="font-weight: bold; font-family: Arial, sans-serif; font-size: 34px;margin-top:130px;margin-left: 5%;color: white;">Vacation Jobs</p>
+        <p style="font-weight: bold; font-family: Arial, sans-serif; font-size: 20px;margin-top:-40px;margin-left: 5%;color: white;">FOR STUDENTS</p>
+    </div>
+</body>
+</html>

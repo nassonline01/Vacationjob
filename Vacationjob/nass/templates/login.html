@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VacationJobs</title>
+    <style>
+        body{
+          font-family: Arial, sans-serif;
+          background-image: url('/static/Images/image4.jpeg')  ;
+          /* background-color: rgb(135, 8, 61); */
+          margin: 0;
+          padding: 0;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+          top: 0;
+          left: 0;
+          flex-direction: column;
+          position: relative; 
+          transition: filter 0.5s ease;
+          z-index: -1;
+          filter: blur(0); 
+        }
+        .container{
+          background-color: rgba(231, 15, 169, 0.5);
+          padding: 20px;
+          border-radius: 5px;
+          box-shadow: 0 0 10px rgb(0, 0, 0.1);
+          width: 350px;
+          color: white;
+          border: 2px solid white;
+        }
+    
+        .container a {
+          color: rgb(85, 9, 9); /* Change the color of the <a> tag */
+          text-decoration: none; /* Remove underline from the <a> tag */
+        }
+        .container a:hover {
+          text-decoration: underline; /* Add underline on hover */
+        }
+    
+        .container h1{
+          text-align: center;
+          color:white;
+        }
+        form{
+          display: flex;
+          flex-direction: column;
+        }
+        label{
+          margin-bottom: 5px;
+          color: white;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"]{
+          padding: 8px;
+          margin-bottom: 10px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+        }
+        button{
+          background-color: rgb(65, 76, 225);
+          color: white;
+          padding: 10px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 16px;
+        }
+        button:hover{
+          background-color: rgb(28, 28, 90);
+        }
+        .error-message {
+          color: red;
+          font-size: 0.9em;
+          /* display: none; */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>LOGIN</h1>
+        <p>Don't have a account ? <a href="{% url 'register_view' %}"> Click here to register</a></p>
+        <form id="login-form" action="" method="POST">
+          {% csrf_token %}
+    
+          
+          <input type="text" placeholder="Enter the username" id="username" name="username" required>
+          <!-- <span id="username-error" class="error-message">Username must contain only characters.</span><br> -->
+    
+          <input type="password" placeholder="Enter the password" id="password" name="password" required>
+          <!-- <span id="password-error" class="error-message">Password must contain only numbers.</span><br> -->
+    
+          <button type="submit">LOGIN</button>
+        </form>
+        {% if messages %}
+          <div class="error-message">
+            {% for message in messages %}
+              <p>{{ message }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+</body>
+</html>
