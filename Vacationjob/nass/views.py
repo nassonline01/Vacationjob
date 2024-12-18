@@ -122,3 +122,5 @@ def user_dashboard(request):
     return render(request, 'User.html')
 def verify_dashboard(request):
     return render(request, 'verificationteam.html')
+def profile_view(request):
+    return render(request, 'Profile.html')
