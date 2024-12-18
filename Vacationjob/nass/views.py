@@ -69,12 +69,12 @@ def login1(request):
 @never_cache
 def register_view(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        first_name = request.POST['first_name']  
-        email = request.POST['email']
-        phonenumber = request.POST['phonenumber']
-        confirmpassword = request.POST['confirmpassword']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        first_name = request.POST.get('first_name')
+        email = request.POST.get('email')
+        phonenumber = request.POST.get('phonenumber')
+        confirmpassword = request.POST.get('confirmpassword')
         
         # Check if passwords match
         if password != confirmpassword:
