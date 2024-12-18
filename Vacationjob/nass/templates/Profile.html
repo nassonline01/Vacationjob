@@ -7,14 +7,14 @@
     <style>
         body{
             display: flex;
-            height: 100vh;
+            height: 130vh;
             justify-content: center;
             align-items: center;
             background:linear-gradient(135deg,#71b7e6,#9b59b6);
         }
         .container{
             max-width: 700px;
-            height: 500px;
+            height: 780px;
             width: 100%;
             background: #fff;
             padding: 25px 30px;
@@ -39,6 +39,29 @@
             flex-wrap: wrap;
             justify-content: space-between;
             margin: 20px 0 12px 0;
+        }
+         /* Add some basic styling for the image container */
+         .profile-photo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ccc;
+        }
+        .upload-button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .upload-button:hover {
+            background-color: #45a049;
         }
         .form.user-details .input-box{
             margin-bottom: 15px;
@@ -67,6 +90,23 @@
         .user-details .input-box input:focus,
         .user-details .input-box input:valid{
          border-color: #9b59b6;   
+        }
+        .user-details .input-box textarea{
+            height: 100px;
+            width: 80%;
+            margin-bottom: 12px;
+            outline: none;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            padding-left: 10px;
+            font-size: 14px;
+            border-bottom-width: 2px;
+            transition: all 0.3s ease;
+        }
+    
+        .user-details .input-box textarea:focus,
+        .user-details .input-box textarea:valid{
+            border-color: #9b59b6;
         }
         form .gender-details .gender-title{
             font-size: 16px;
@@ -127,28 +167,38 @@
     <body>
     <div class="container">
         <div class="title">Profile</div>
+         <!-- Profile Photo Section -->
+         <div class="profile-photo-container">
+            <!-- Default profile photo -->
+            <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Profile Photo" class="profile-photo" id="profilePhoto">
+            <br>
+            <!-- Upload button for profile photo -->
+            <input type="file" id="fileUpload" style="display: none;" accept="image/*" onchange="previewProfilePhoto()">
+            <label for="fileUpload" class="upload-button">Upload Profile Photo</label>
+        </div>
+
              <form id="registration-form" action="" method="POST">
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Full Name</span>
-                        <input type="text" placeholder="Enter your name" required>
+                        <input type="text" name="name" placeholder="Enter your name" required>
                     </div>
                     <div class="input-box">
                         <span class="details">Email</span>
-                        <input type="email" placeholder="Enter your email" required>
+                        <input type="email" name="email" placeholder="Enter your email" required>
                     </div>
                     
                     <div class="input-box">
                         <span class="details">Phone Number</span>
-                        <input type="text" placeholder="Enter your phone number" required>
+                        <input type="text" name="phone"Enter your phone number" required>
                     </div>
                     <div class="input-box">
                         <span class="details">Date of Birth</span>
-                        <input type="date"class="date-input" required>
+                        <input type="date" name="dob"date-input" required>
                     </div>
                     <div class="gender-details">
-                        <input type="radio" name="gender" id = "dot-1" value="dot-1"required>
-                        <input type="radio" name="gender" id = "dot-2" value="dot-2"required>
+                        <input type="radio" name="gender" id = "dot-1" value="male"required>
+                        <input type="radio" name="gender" id = "dot-2" value="female"required>
                         <span class="gender-title">Gender</span>
                         <div class="category">
                             <label for="dot-1">
@@ -161,24 +211,97 @@
                             </label>
                         </div>        
                     </div>
+                       <!-- Marital Status Section (New Field) -->
+                <div class="gender-details">
+                    <input type="radio" name="marital_status" id="dot-3" value="single" required>
+                    <input type="radio" name="marital_status" id="dot-4" value="married" required>
+                    <span class="gender-title">Status</span>
+                    <div class="category">
+                        <label for="dot-3">
+                            <span class="dot one"></span>
+                            <span class="gender">Worker</span>
+                        </label>
+                        <label for="dot-4">
+                            <span class="dot two"></span>
+                            <span class="gender">Student</span>
+                        </label>
+                        <label for="dot-5">
+                            <span class="dot three"></span>
+                            <span class="gender">Others</span>
+                        </label>
+                    </div>
+                </div>
+                   
                     <div class="input-box">
                         <span class="details">Qualification</span>
-                        <input type="text" placeholder="Enter your Degree" required>
+                        <input type="text" name="qualification" placeholder="Enter your Degree" required>
                     </div>
                     <div class="input-box">
                         <span class="details">Address</span>
-                        <input type="text" placeholder="Enter your Address" required>
+                        <input type="text" name="address"Enter your Address" required>
                     </div>
+                    <div class="input-box">
+                        <span class="details">Landmark</span>
+                        <input type="text" name="land" placeholder="Enter your landmark" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Pincode</span>
+                        <input type="number" name="pin"Enter your pincode" required>
+                    </div>
+                    
+                    <div class="input-box">
+                        <span class="details">Country</span>
+                        <input type="text" name="country" placeholder="Enter your country" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">State</span>
+                        <input type="text" name="state" placeholder="Enter your state" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">City</span>
+                        <input type="text" name="city" placeholder="Enter your city" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Hobbies</span>
+                        <input type="text" name="hobby" placeholder="Enter your hobbies" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Languages</span>
+                        <input type="text" name="language" placeholder="Enter your income" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">Annuel income</span>
+                        <input type="text" name="annual" placeholder="Enter your income" required>
+                    </div>
+                    <div class="input-box">
+                        <span class="details">About</span>
+                        <textarea placeholder="Enter your description here" rows="4" cols="50" required></textarea>
+                    </div>
+                
+                    
                 </div>
+                
                     <div class="button">
-                        <input type="submit" value="Register">
+                        <input type="submit" value="Update">
                     </div>
     
     </div>
 </div>
 </form>
+<script>
+    // Function to preview the uploaded profile photo
+    function previewProfilePhoto() {
+        const file = document.getElementById("fileUpload").files[0];
+        const reader = new FileReader();
 
+        reader.onloadend = function() {
+            document.getElementById("profilePhoto").src = reader.result;
+        };
 
-    
+        if (file) {
+            reader.readAsDataURL(file);
+        }
+    }
+</script>
 </body>
 </html>

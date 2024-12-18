@@ -305,7 +305,7 @@
                     </div>
                 </div>
             </div>
-            <script>
+    <script>
                             // Get the Dashboard dropdown button and its associated content
                 const dropdownBtn = document.getElementById('dropdownBtn');
                 const dropdownContent = document.getElementById('dropdownContent');
@@ -344,31 +344,40 @@
                     nestedDropdownContent.style.display = nestedDropdownContent.style.display === 'block' ? 'none' : 'block';
                 });
 
-                    // Close dropdowns and sections when clicking outside
-            window.addEventListener("click", function (event) {
-            const dropdownContent = document.getElementById("dropdownContent");
-            const dropdownContent1 = document.getElementById("withdrawalContent");
-            const dropdownBtn = document.getElementById("dropdownBtn");
-            const btn = document.getElementById("withdrawalBtn");
-            const overviewLink = document.getElementById("overviewLink");
-            const nestedDropdownContent = document.getElementById("nestedDropdownContent");
-
-            // Close the main dropdown if clicked outside of it
-            if (!dropdownBtn.contains(event.target)) {
-                dropdownContent.style.display = "none";
-                dropdownBtn.classList.remove("active"); // Remove chevron rotation for main button
-            }
-              // Close the main dropdown if clicked outside of it
-              if (!btn.contains(event.target)) {
-                dropdownContent1.style.display = "none";
-                btn.classList.remove("active"); // Remove chevron rotation for main button
-            }
-
-            // Close nested dropdown if clicked outside of "Overview"
-            if (!overviewLink.contains(event.target)) {
-                nestedDropdownContent.style.display = "none";
-                overviewLink.querySelector(".chevron-icon").classList.remove("active");
-            }
+                window.addEventListener("click", function (event) {
+                    // Get elements for all dropdowns and buttons
+                    const dropdownContent = document.getElementById("dropdownContent");
+                    const dropdownContent1 = document.getElementById("withdrawalContent");
+                    const dropdownBtn = document.getElementById("dropdownBtn");
+                    const btn = document.getElementById("withdrawalBtn");
+                    const overviewLink = document.getElementById("overviewLink");
+                    const nestedDropdownContent = document.getElementById("nestedDropdownContent");
+                
+                    // Close all dropdowns if clicked outside any of them
+                    if (!dropdownBtn.contains(event.target) && !dropdownContent.contains(event.target)) {
+                        dropdownContent.style.display = "none";
+                        dropdownBtn.classList.remove("active"); // Remove chevron rotation for main button
+                    }
+                
+                    if (!btn.contains(event.target) && !dropdownContent1.contains(event.target)) {
+                        dropdownContent1.style.display = "none";
+                        btn.classList.remove("active"); // Remove chevron rotation for main button
+                    }
+                
+                    // Close nested dropdown if clicked outside of "Overview"
+                    if (!overviewLink.contains(event.target) && !nestedDropdownContent.contains(event.target)) {
+                        nestedDropdownContent.style.display = "none";
+                        overviewLink.querySelector(".chevron-icon").classList.remove("active");
+                    }
+                
+                    // Hide all sections if clicked outside any section (optional, based on your setup)
+                    const sections = document.querySelectorAll('.tab'); // Assuming tabs are sections
+                    sections.forEach(function(section) {
+                        if (!section.contains(event.target)) {
+                            section.style.display = "none"; // Hide the section
+                        }
+                    });
+                
 
             // Hide all sections if clicking outside any section
             <!-- hideAllSections(); -->
@@ -377,7 +386,7 @@
             });
                 });
            
-            </script>
+    </script>
                 
 
            
