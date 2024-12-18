@@ -39,7 +39,7 @@
         }
         .container{
             /* background-color: #acdfc1; */
-            width:300px;
+            width:400px;
             height: 100%;
             /* padding: 20px; */
             margin: 150px auto; /* Centers the container horizontally */
@@ -139,7 +139,7 @@
                 box-shadow: 0px 8px 16px rgba(0,0,0,0.2); /* Add shadow */
                 z-index: 1;
                 top: 90%; /* Position below the button */
-                left: 85%;
+                left: 78%;
                 border-radius: 8px;
                 padding: 0; /* Remove extra padding from <ul> */
                 list-style-type: none; /* Remove bullets */
@@ -149,8 +149,8 @@
                 display: flex;
                 align-items: center; 
                 gap: 8px; 
-                margin-left: 23px;
-                margin-right: 90px;
+                margin-left: 20px;
+                
             } 
             .dropdown-content1 li a {
                 color: black;
@@ -173,8 +173,8 @@
             display: none; /* Hide nested dropdown by default */
             position: absolute;
             min-width: 200px;
-            left: 109%; /* Position it to the right of the parent */
-            top: 5%;
+            left: 104%; /* Position it to the right of the parent */
+            top: 3%;
             background-color: white;
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
             border-radius: 8px;
@@ -248,7 +248,8 @@
         <div class="container">
             <div class="applogo"></div>
             <div class="nav-container">
-                <button class="btn" >
+                     <!-- Updated My Account Button -->
+                     <button class="btn" data-url="{% url 'profile_view' %}" onclick="window.location.href=this.getAttribute('data-url')">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24">
                         <!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
                         <path d="M112 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm40 304l0 128c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-223.1L59.4 304.5c-9.1 15.1-28.8 20-43.9 10.9s-20-28.8-10.9-43.9l58.3-97c17.4-28.9 48.6-46.6 82.3-46.6l29.7 0c33.7 0 64.9 17.7 82.3 46.6l58.3 97c9.1 15.1 4.2 34.8-10.9 43.9s-34.8 4.2-43.9-10.9L232 256.9 232 480c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-128-16 0z" fill="white"/>
@@ -256,7 +257,7 @@
                     My Account
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon"></svg>
                 </button>
-
+                    
                 <button class="btn" id="dropdownBtn">
                     <i class="fa fa-home" style="font-size:24px;color:white"></i>
                     Dashboard
@@ -270,17 +271,18 @@
                             <polyline points="9 6 15 12 9 18"></polyline>
                         </svg></a>
                     </li> 
+                    
+                        <ul class="nested-dropdown-content" id="nestedDropdownContent">
+                            <li><a href="#">Total Commision</a></li>
+                            <li><a href="#">Lifelong Commision</a></li>
+                         </ul>
+                    
                     <li id="overviewLink">
                         <a href="#">Resource <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
                         <polyline points="9 18 15 12 9 6"></polyline>
                     </svg></a>
                     </li> 
-                    <div class="dropdown">
-                        <ul class="nested-dropdown-content" id="nestedDropdownContent">
-                            <li><a href="#">Total Commision</a></li>
-                            <li><a href="#">Lifelong Commision</a></li>
-                        </ul>
-                    </div>
+                    
                 </ul> 
                         <!-- Withdrawal Button -->
                 <button class="btn" id="withdrawalBtn">
@@ -291,62 +293,90 @@
                     </svg>
                 </button>
                 <ul class="dropdown-content1" id="withdrawalContent">
-                    <li><a href="#">Account details</a></li>
-                    <li><a href="#">Amount</a></li>
+                    <li id="overviewLink"><a href="#">Account details<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg></a></li>
+                    <li id="overviewLink"><a href="#">Amount<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg></a>
+                    </li>
                 </ul>
                 
                     </div>
                 </div>
             </div>
             <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    // Dashboard Dropdown Toggle
-                    document.getElementById("dropdownBtn").addEventListener("click", function (event) {
-                        event.stopPropagation();
-                        toggleDropdown("dropdownContent", this);
-                        hideOtherDropdowns("dropdownContent");
-                    });
+                            // Get the Dashboard dropdown button and its associated content
+                const dropdownBtn = document.getElementById('dropdownBtn');
+                const dropdownContent = document.getElementById('dropdownContent');
+
+                // Get the Withdrawal dropdown button and its associated content
+                const withdrawalBtn = document.getElementById('withdrawalBtn');
+                const withdrawalContent = document.getElementById('withdrawalContent');
+
+                // Get the Overview dropdown and its nested content
+                const overviewLink = document.querySelector('#dropdownContent li:nth-child(1) > a');
+                const nestedDropdownContent = document.getElementById('nestedDropdownContent');
+
+                // Function to toggle dropdown visibility
+                function toggleDropdown(button, content) {
+                    content.style.display = content.style.display === 'block' ? 'none' : 'block';
+                    button.classList.toggle('active');
+                }
                 
-                    // Withdrawal Dropdown Toggle
-                    document.getElementById("withdrawalBtn").addEventListener("click", function (event) {
-                        event.stopPropagation();
-                        toggleDropdown("withdrawalContent", this);
-                        hideOtherDropdowns("withdrawalContent");
-                    });
-                
-                    // Close dropdowns when clicking outside
-                    window.addEventListener("click", function () {
-                        closeDropdown("dropdownContent", "dropdownBtn");
-                        closeDropdown("withdrawalContent", "withdrawalBtn");
-                    });
-                
-                    // Toggle dropdown function
-                    function toggleDropdown(contentId, button) {
-                        const dropdown = document.getElementById(contentId);
-                        dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-                        button.classList.toggle("active");
-                    }
-                
-                    // Close other dropdowns
-                    function hideOtherDropdowns(exceptId) {
-                        ["dropdownContent", "withdrawalContent"].forEach((id) => {
-                            if (id !== exceptId) {
-                                document.getElementById(id).style.display = "none";
-                            }
-                        });
-                    }
-                
-                    // Close a specific dropdown
-                    function closeDropdown(contentId, buttonId) {
-                        const dropdown = document.getElementById(contentId);
-                        const button = document.getElementById(buttonId);
-                        if (dropdown) {
-                            dropdown.style.display = "none";
-                            button.classList.remove("active");
-                        }
-                    }
+
+                // Event listener for Dashboard dropdown
+                dropdownBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent click from bubbling to document
+                    toggleDropdown(dropdownBtn, dropdownContent);
                 });
-                
+
+                // Event listener for Withdrawal dropdown
+                withdrawalBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleDropdown(withdrawalBtn, withdrawalContent);
+                });
+
+                // Event listener for Overview nested dropdown
+                overviewLink.addEventListener('click', (e) => {
+                    e.preventDefault(); // Prevent default anchor behavior
+                    e.stopPropagation();
+                    nestedDropdownContent.style.display = nestedDropdownContent.style.display === 'block' ? 'none' : 'block';
+                });
+
+                    // Close dropdowns and sections when clicking outside
+            window.addEventListener("click", function (event) {
+            const dropdownContent = document.getElementById("dropdownContent");
+            const dropdownContent1 = document.getElementById("withdrawalContent");
+            const dropdownBtn = document.getElementById("dropdownBtn");
+            const btn = document.getElementById("withdrawalBtn");
+            const overviewLink = document.getElementById("overviewLink");
+            const nestedDropdownContent = document.getElementById("nestedDropdownContent");
+
+            // Close the main dropdown if clicked outside of it
+            if (!dropdownBtn.contains(event.target)) {
+                dropdownContent.style.display = "none";
+                dropdownBtn.classList.remove("active"); // Remove chevron rotation for main button
+            }
+              // Close the main dropdown if clicked outside of it
+              if (!btn.contains(event.target)) {
+                dropdownContent1.style.display = "none";
+                btn.classList.remove("active"); // Remove chevron rotation for main button
+            }
+
+            // Close nested dropdown if clicked outside of "Overview"
+            if (!overviewLink.contains(event.target)) {
+                nestedDropdownContent.style.display = "none";
+                overviewLink.querySelector(".chevron-icon").classList.remove("active");
+            }
+
+            // Hide all sections if clicking outside any section
+            <!-- hideAllSections(); -->
+            document.getElementById('profileButton').addEventListener('click', function() {
+                window.location.href = "{% url 'profile_view' %}";
+            });
+                });
+           
             </script>
                 
 
