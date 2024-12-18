@@ -71,7 +71,7 @@ def register_view(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        name = request.POST['fristname']  # Typo in 'fristname', change it to 'firstname' in both code and form
+        first_name = request.POST['first_name']  
         email = request.POST['email']
         phonenumber = request.POST['phonenumber']
         confirmpassword = request.POST['confirmpassword']
@@ -91,7 +91,7 @@ def register_view(request):
         student = Register.objects.create(
             user=user,
             # username=username, 
-            first_name=name, 
+            first_name=first_name, 
             email=email, 
             phonenumber=phonenumber,
             # password=password,  # Storing raw passwords in your model is insecure, consider removing this
