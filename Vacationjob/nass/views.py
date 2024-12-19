@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect , HttpResponse
 from django.views.decorators.cache import never_cache
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -122,5 +122,30 @@ def user_dashboard(request):
     return render(request, 'User.html')
 def verify_dashboard(request):
     return render(request, 'verificationteam.html')
+
 def profile_view(request):
+    if request.method == 'POST':
+        a = request.POST('name')
+        b = request.POST('email')
+        c = request.POST('phone')
+        d = request.POST('dob')
+        e = request.POST('gender')
+        f = request.POST('qualification')
+        g = request.POST('address')
+        h = request.POST('landmark')
+        i = request.POST('country')
+        j = request.POST('state')
+        k = request.POST('city')
+        l = request.POST('hobby')
+        m = request.POST('language')
+        n = request.POST('annual')
+        o = request.POST('about')
+        p = request.POST('status')
+        profile = Register.objects.create(
+            first_name = a , email = b , phone = c , birth_date = d , gender = e , qualification = f ,
+            address = g , landmark = h , country = i ,state = j ,city = k , hobby = l , languages = m , 
+            annual_income = n , about = o , status = p
+        )
+        profile.save()
+        return HttpResponse("<script>window.alert('Congrats...! your Profile has been Updated');window.href.location('/user/');</script>")
     return render(request, 'Profile.html')
