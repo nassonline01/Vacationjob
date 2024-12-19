@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,7 @@
     <style>
         body{
             display: flex;
-            height: 130vh;
+            height: 155vh;
             justify-content: center;
             align-items: center;
             background:linear-gradient(135deg,#71b7e6,#9b59b6);
@@ -44,7 +45,6 @@
             text-align: center;
             margin-bottom: 20px;
         }
-        
         .profile-photo {
             width: 150px;
             height: 150px;
@@ -52,28 +52,42 @@
             border: 2px solid #ccc;
             object-fit: cover;
         }
-        
-        .upload-buttons {
+        .dropdown {
+            position: relative;
+            display: inline-block;
             margin-top: 10px;
         }
-        
-        .upload-btn {
+        .dropdown-btn {
             background-color: #008CBA;
             color: white;
-            padding: 5px 10px;
+            padding: 10px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
-        
-        #removePhoto {
-            background-color: #f44336;
-            color: white;
-            padding: 5px 10px;
-            border: none;
+        .dropdown-btn:hover {
+            background-color: #005f73;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
             border-radius: 5px;
-            margin-left: 10px;
-            cursor: pointer;
+            overflow: hidden;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
         }
         .form.user-details .input-box{
             margin-bottom: 15px;
@@ -185,21 +199,25 @@
 <body>
     <div class="container">
         <div class="title">Profile</div>
-         <!-- Profile Photo Section -->
-            <div class="profile-photo-container">
-                <!-- Display default or uploaded profile photo -->
+        <div class="profile-photo-container">
+                <!-- Default or uploaded profile photo -->
                 <img id="profilePhoto" 
-                    src="{% static 'default-profile.png' %}" 
+                    src="https://www.w3schools.com/w3images/avatar2.png" 
                     alt="Profile Photo" 
                     class="profile-photo">
-                    
-                <div class="upload-buttons">
-                    <input type="file" name="profile_photo" id="fileUpload" accept="image/*" onchange="previewProfilePhoto()">
-                    <label for="fileUpload" class="upload-btn">Upload Photo</label>
-                    <button type="button" id="removePhoto" onclick="removeProfilePhoto()">Remove Photo</button>
+                
+                <!-- Dropdown Menu -->
+                <div class="dropdown">
+                    <button class="dropdown-btn">Edit</button>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="triggerFileUpload()">Update</a>
+                        <a href="/edit-profile">remove</a>
+                    </div>
                 </div>
+                
+                <!-- Hidden file input for uploading photo -->
+                <input type="file" name="profile_photo" id="fileUpload" accept="image/*" style="display: none;" onchange="previewProfilePhoto()">
             </div>
-
             <form id="registration-form" action="" method="POST">
                 {% csrf_token %}
                 <div class="user-details">
@@ -273,9 +291,6 @@
                     <div class="input-box">
                         <span class="details">Pincode</span>
                         <input type="number" name="pin" placeholder= "Enter your pincode" required>
-=======
-                        <input type="number" name="pin" placeholder="Enter your pincode" required>
->>>>>>> cc4bc3ac9b8bd78b949ed14cccc0d3d60cf76e7c
                     </div>
                     
                     <div class="input-box">
@@ -318,6 +333,11 @@
     </div>
 
     <script>
+                // Function to trigger the file input click
+            function triggerFileUpload() {
+                document.getElementById("fileUpload").click();
+            }
+
             // Function to preview the uploaded profile photo
             function previewProfilePhoto() {
                 const file = document.getElementById("fileUpload").files[0];
@@ -330,13 +350,6 @@
                 if (file) {
                     reader.readAsDataURL(file);
                 }
-            }
-
-            // Function to remove the profile photo and set it to default
-            function removeProfilePhoto() {
-                const defaultPhoto = "{% static 'default-profile.png' %}";
-                document.getElementById("profilePhoto").src = defaultPhoto;
-                document.getElementById("fileUpload").value = ""; // Clear file input
             }
     </script>
 </body>
