@@ -73,7 +73,7 @@ def register_view(request):
         password = request.POST.get('password')
         first_name = request.POST.get('first_name')
         email = request.POST.get('email')
-        phonenumber = request.POST.get('phonenumber')
+        phone = request.POST.get('phone')
         confirmpassword = request.POST.get('confirmpassword')
         
         # Check if passwords match
@@ -93,7 +93,7 @@ def register_view(request):
             # username=username, 
             first_name=first_name, 
             email=email, 
-            phonenumber=phonenumber,
+            phone=phone,
             # password=password,  # Storing raw passwords in your model is insecure, consider removing this
             # confirmpassword=confirmpassword,  # Same as above
         )
