@@ -1,7 +1,25 @@
+# Env files
 env1/
 env/
-_pycache_/
-.vscode/
+
+# Migrations and Caches
+__pycache__/
 *.pyc
-.log
+**/migrations/*.py
+
+# Exception
+!**/migrations/__init__.py  
+
+# Database
 db.sqlite3
+db.sqlite3-journal
+
+# log files
+*.log
+
+# Vs Code files
+.vscode/
+
+# OS-specific files 
+.DS_Store
+Thumbs.db
