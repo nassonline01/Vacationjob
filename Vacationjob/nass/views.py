@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect , HttpResponse
 from django.views.decorators.cache import never_cache
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
@@ -141,4 +141,11 @@ def profile_view(request):
         n = request.POST('annual')
         o = request.POST('about')
         p = request.POST('status')
+        profile = Register.objects.create(
+            first_name = a , email = b , phone = c , birth_date = d , gender = e , qualification = f ,
+            address = g , landmark = h , country = i ,state = j ,city = k , hobby = l , languages = m , 
+            annual_income = n , about = o , status = p
+        )
+        profile.save()
+        return HttpResponse("<script>window.alert('Congrats...! your Profile has been Updated');window.href.location('/user/');</script>")
     return render(request, 'Profile.html')
