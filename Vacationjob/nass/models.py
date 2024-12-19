@@ -21,4 +21,4 @@ class Register(models.Model):
     annual_income = models.IntegerField(default='100000')
     languages = models.CharField(max_length=100,default='Not Specified')
     about = models.CharField(max_length=200,default='Not Specified')
-    images = models.ImageField(upload_to='User_Images/',default='Not Specified')
+    images = models.ImageField(upload_to='User_Images/', null=True, blank=True, default='default-profile.png')

@@ -40,28 +40,40 @@
             justify-content: space-between;
             margin: 20px 0 12px 0;
         }
-         /* Add some basic styling for the image container */
-         .profile-photo-container {
+        .profile-photo-container {
             text-align: center;
             margin-bottom: 20px;
         }
+        
         .profile-photo {
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            object-fit: cover;
             border: 2px solid #ccc;
+            object-fit: cover;
         }
-        .upload-button {
+        
+        .upload-buttons {
             margin-top: 10px;
-            padding: 5px 10px;
-            background-color: #4CAF50;
+        }
+        
+        .upload-btn {
+            background-color: #008CBA;
             color: white;
+            padding: 5px 10px;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
         }
-        .upload-button:hover {
-            background-color: #45a049;
+        
+        #removePhoto {
+            background-color: #f44336;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: pointer;
         }
         .form.user-details .input-box{
             margin-bottom: 15px;
@@ -169,21 +181,26 @@
         }
 
     </style>
-    </head>
-    <body>
+</head>
+<body>
     <div class="container">
         <div class="title">Profile</div>
          <!-- Profile Photo Section -->
-         <div class="profile-photo-container">
-            <!-- Default profile photo -->
-            <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Profile Photo" class="profile-photo" id="profilePhoto">
-            <br>
-            <!-- Upload button for profile photo -->
-            <input type="file" id="fileUpload" style="display: none;" accept="image/*" onchange="previewProfilePhoto()">
-            <label for="fileUpload" class="upload-button">Upload Profile Photo</label>
-        </div>
+            <div class="profile-photo-container">
+                <!-- Display default or uploaded profile photo -->
+                <img id="profilePhoto" 
+                    src="{% static 'default-profile.png' %}" 
+                    alt="Profile Photo" 
+                    class="profile-photo">
+                    
+                <div class="upload-buttons">
+                    <input type="file" name="profile_photo" id="fileUpload" accept="image/*" onchange="previewProfilePhoto()">
+                    <label for="fileUpload" class="upload-btn">Upload Photo</label>
+                    <button type="button" id="removePhoto" onclick="removeProfilePhoto()">Remove Photo</button>
+                </div>
+            </div>
 
-             <form id="registration-form" action="" method="POST">
+            <form id="registration-form" action="" method="POST">
                 {% csrf_token %}
                 <div class="user-details">
                     <div class="input-box">
@@ -219,7 +236,7 @@
                         </div>        
                     </div>
                        <!--  Status Section (New Field) -->
-                       <div class="gender-details">
+                    <div class="gender-details">
                         <input type="radio" name="status" id="dot-3" value="worker" required>
                         <input type="radio" name="status" id="dot-4" value="student" required>
                         <input type="radio" name="status" id="dot-5" value="other" required>
@@ -247,11 +264,7 @@
                     </div>
                     <div class="input-box">
                         <span class="details">Address</span>
-<<<<<<< HEAD
                         <input type="text" name="address"placeholder="Enter your Address" required>
-=======
-                        <input type="text" name="address"  placeholder="Enter your Address" required>
->>>>>>> cc4bc3ac9b8bd78b949ed14cccc0d3d60cf76e7c
                     </div>
                     <div class="input-box">
                         <span class="details">Landmark</span>
@@ -259,11 +272,7 @@
                     </div>
                     <div class="input-box">
                         <span class="details">Pincode</span>
-<<<<<<< HEAD
                         <input type="number" name="pin" placeholder= "Enter your pincode" required>
-=======
-                        <input type="number" name="pin" placeholder="Enter your pincode" required>
->>>>>>> cc4bc3ac9b8bd78b949ed14cccc0d3d60cf76e7c
                     </div>
                     
                     <div class="input-box">
@@ -298,28 +307,35 @@
                     
                 </div>
                 
-                    <div class="button">
-                        <input type="submit" value="Update">
-                    </div>
-    
+                <div class="button">
+                    <input type="submit" value="Update">
+                </div>
+            </form>
+        
     </div>
-</div>
-</form>
-<script>
-    // Function to preview the uploaded profile photo
-    function previewProfilePhoto() {
-        const file = document.getElementById("fileUpload").files[0];
-        const reader = new FileReader();
 
-        reader.onloadend = function() {
-            document.getElementById("profilePhoto").src = reader.result;
-        };
+    <script>
+            // Function to preview the uploaded profile photo
+            function previewProfilePhoto() {
+                const file = document.getElementById("fileUpload").files[0];
+                const reader = new FileReader();
 
-        if (file) {
-            reader.readAsDataURL(file);
-        }
-    }
-</script>
+                reader.onloadend = function () {
+                    document.getElementById("profilePhoto").src = reader.result;
+                };
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            // Function to remove the profile photo and set it to default
+            function removeProfilePhoto() {
+                const defaultPhoto = "{% static 'default-profile.png' %}";
+                document.getElementById("profilePhoto").src = defaultPhoto;
+                document.getElementById("fileUpload").value = ""; // Clear file input
+            }
+    </script>
 </body>
 </html>
 
