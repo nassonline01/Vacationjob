@@ -1,13 +1,15 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PROFILE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         body{
             display: flex;
-            height: 130vh;
+            height: 155vh;
             justify-content: center;
             align-items: center;
             background:linear-gradient(135deg,#71b7e6,#9b59b6);
@@ -40,8 +42,7 @@
             justify-content: space-between;
             margin: 20px 0 12px 0;
         }
-         /* Add some basic styling for the image container */
-         .profile-photo-container {
+        .profile-photo-container {
             text-align: center;
             margin-bottom: 20px;
         }
@@ -49,19 +50,45 @@
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            object-fit: cover;
             border: 2px solid #ccc;
+            object-fit: cover;
         }
-        .upload-button {
+        .dropdown {
+            position: relative;
+            display: inline-block;
             margin-top: 10px;
-            padding: 5px 10px;
-            background-color: #4CAF50;
+        }
+        .dropdown-btn {
+            background-color: #008CBA;
             color: white;
+            padding: 8px 12px;
             border: none;
+            border-radius: 5px;
             cursor: pointer;
         }
-        .upload-button:hover {
-            background-color: #45a049;
+        .dropdown-btn:hover {
+            background-color: #005f73;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .dropdown-content a {
+            color: black;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+        }
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+        .dropdown:hover .dropdown-content {
+            display: block;
         }
         .form.user-details .input-box{
             margin-bottom: 15px;
@@ -169,21 +196,30 @@
         }
 
     </style>
-    </head>
-    <body>
+</head>
+<body>
     <div class="container">
         <div class="title">Profile</div>
-         <!-- Profile Photo Section -->
-         <div class="profile-photo-container">
-            <!-- Default profile photo -->
-            <img src="https://www.w3schools.com/w3images/avatar2.png" alt="Profile Photo" class="profile-photo" id="profilePhoto">
-            <br>
-            <!-- Upload button for profile photo -->
-            <input type="file" id="fileUpload" style="display: none;" accept="image/*" onchange="previewProfilePhoto()">
-            <label for="fileUpload" class="upload-button">Upload Profile Photo</label>
-        </div>
-
-             <form id="registration-form" action="" method="POST">
+        <div class="profile-photo-container">
+                <!-- Default or uploaded profile photo -->
+                <img id="profilePhoto" 
+                    src="https://www.w3schools.com/w3images/avatar2.png" 
+                    alt="Profile Photo" 
+                    class="profile-photo">
+                
+                <!-- Dropdown Menu -->
+                <div class="dropdown">
+                    <button class="dropdown-btn"><i class="fa fa-edit"></i></button>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="triggerFileUpload()">Update</a>
+                        <a href="/edit-profile">remove</a>
+                    </div>
+                </div>
+                
+                <!-- Hidden file input for uploading photo -->
+                <input type="file" name="profile_photo" id="fileUpload" accept="image/*" style="display: none;" onchange="previewProfilePhoto()">
+            </div>
+            <form id="registration-form" action="" method="POST">
                 {% csrf_token %}
                 <div class="user-details">
                     <div class="input-box">
@@ -221,7 +257,7 @@
                         </div>        
                     </div>
                        <!--  Status Section (New Field) -->
-                       <div class="gender-details">
+                    <div class="gender-details">
                         <input type="radio" name="status" id="dot-3" value="worker" required>
                         <input type="radio" name="status" id="dot-4" value="student" required>
                         <input type="radio" name="status" id="dot-5" value="other" required>
@@ -258,7 +294,6 @@
                     <div class="input-box">
                         <span class="details">Pincode</span>
                         <input type="number" name="pin" placeholder= "Enter your pincode" required>
-
                     </div>
                     
                     <div class="input-box">
@@ -293,28 +328,33 @@
                     
                 </div>
                 
-                    <div class="button">
-                        <input type="submit" value="Update">
-                    </div>
-    
+                <div class="button">
+                    <input type="submit" value="Update">
+                </div>
+            </form>
+        
     </div>
-</div>
-</form>
-<script>
-    // Function to preview the uploaded profile photo
-    function previewProfilePhoto() {
-        const file = document.getElementById("fileUpload").files[0];
-        const reader = new FileReader();
 
-        reader.onloadend = function() {
-            document.getElementById("profilePhoto").src = reader.result;
-        };
+    <script>
+                // Function to trigger the file input click
+            function triggerFileUpload() {
+                document.getElementById("fileUpload").click();
+            }
 
-        if (file) {
-            reader.readAsDataURL(file);
-        }
-    }
-</script>
+            // Function to preview the uploaded profile photo
+            function previewProfilePhoto() {
+                const file = document.getElementById("fileUpload").files[0];
+                const reader = new FileReader();
+
+                reader.onloadend = function () {
+                    document.getElementById("profilePhoto").src = reader.result;
+                };
+
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            }
+    </script>
 </body>
 </html>
 
