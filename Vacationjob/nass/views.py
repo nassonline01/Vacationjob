@@ -135,6 +135,7 @@ def profile_view(request):
         person.phone = request.POST['phone']
         person.birth_date = request.POST['dob']
         person.gender = request.POST['gender']
+        person.status = request.POST['status']
         person.qualification = request.POST['qualification']
         person.address = request.POST['address']
         person.landmark = request.POST['land']
@@ -145,8 +146,8 @@ def profile_view(request):
         person.hobby = request.POST['hobby']
         person.languages = request.POST['language']
         person.annual_income = request.POST['annual']
-        # person.about = request.POST['about','']
-        # person.status = request.POST['status']
+        person.about = request.POST['about']
+        # person.images = request.FILES['images']
 
         # person = Register.objects.create(
         #     first_name = a , email = b , phone = c , birth_date = d , gender = e , qualification = f ,

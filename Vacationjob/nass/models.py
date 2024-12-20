@@ -31,6 +31,8 @@ class Register(models.Model):
     birth_date =models.DateField(null=True)
     gender_choice =[('male','Male'),('female','Female'),('other','Other')] 
     gender = models.CharField(max_length=10,choices=gender_choice)
+    status_choice =[('worker','Worker'),('student','Student'),('other','Other')]
+    status = models.CharField(max_length=10,choices=status_choice)
     qualification = models.CharField(max_length=50)
     address = models.CharField(max_length=100)
     landmark = models.CharField(max_length=50)
