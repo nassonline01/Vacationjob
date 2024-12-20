@@ -1,7 +1,6 @@
 from django.shortcuts import render,redirect , HttpResponse
 from django.views.decorators.cache import never_cache
 from django.contrib.auth import authenticate, login
-from django.core.files.storage import default_storage
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Register
