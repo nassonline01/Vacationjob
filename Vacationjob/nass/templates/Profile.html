@@ -224,24 +224,26 @@
                 <div class="user-details">
                     <div class="input-box">
                         <span class="details">Full Name</span>
-                        <input type="text" name="name" placeholder="Enter your name" required>
+                        <input type="text" name="name" placeholder="Enter your name" value="{{ Data.first_name }}" required>
                     </div>
                     <div class="input-box">
                         <span class="details">Email</span>
-                        <input type="email" name="email" placeholder="Enter your email" required>
+                        <input type="email" name="email" placeholder="Enter your email" value="{{ Data.email }}" required>
                     </div>
                     
                     <div class="input-box">
                         <span class="details">Phone Number</span>
-                        <input type="text" name="phone" placeholder="Enter your phone number" required>
+                        <input type="text" name="phone" placeholder="Enter your phone number" value="{{ Data.phone }}" required>
                     </div>
                     <div class="input-box">
                         <span class="details">Date of Birth</span>
-                        <input type="date" name="dob" placeholder="date-input" required>
+                        <input type="date" name="dob" placeholder="date-input" value="{{ Data.birth_date }}" required>
                     </div>
                     <div class="gender-details">
-                        <input type="radio" name="gender" id = "dot-1" value="male"required>
-                        <input type="radio" name="gender" id = "dot-2" value="female"required>
+                        <input type="radio" name="gender" id = "dot-1" value="male" 
+                        {% if Data.gender == "male" %}checked {% endif %} required>
+                        <input type="radio" name="gender" id = "dot-2" value="female"
+                        {% if Data.gender == "female" %}checked {% endif %} required>
                         <span class="gender-title">Gender</span>
                         <div class="category">
                             <label for="dot-1">
@@ -320,7 +322,7 @@
                     </div>
                     <div class="input-box">
                         <span class="details">About</span>
-                        <textarea placeholder="Enter your description here" rows="4" cols="50" required></textarea>
+                        <textarea placeholder="Enter your description here" rows="4" cols="50" name="about" required></textarea>
                     </div>
                 
                     

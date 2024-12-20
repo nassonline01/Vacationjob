@@ -93,7 +93,7 @@ def register_view(request):
             # username=username, 
             first_name=first_name, 
             email=email, 
-            phone=phone,
+            phone=phone
             # password=password,  # Storing raw passwords in your model is insecure, consider removing this
             # confirmpassword=confirmpassword,  # Same as above
         )
@@ -124,30 +124,35 @@ def verify_dashboard(request):
     return render(request, 'verificationteam.html')
 
 def profile_view(request):
+    try:
+        person = Register.objects.get(user=request.user)
+    except:
+        return HttpResponse("<script>window.alert('Problem with user');window.href.location('/userprofile/');</script>")
     if request.method == 'POST':
-        a = request.POST('name')
-        b = request.POST('email')
-        c = request.POST('phone')
-        d = request.POST('dob')
-        e = request.POST('gender')
-        f = request.POST('qualification')
-        g = request.POST('address')
-        h = request.POST('landmark')
-        i = request.POST('country')
-        j = request.POST('state')
-        k = request.POST('city')
-        l = request.POST('hobby')
-        m = request.POST('language')
-        n = request.POST('annual')
-        o = request.POST('about')
-        p = request.POST('status')
-        q= request.FILES.get('profile_photo')
-        profile = Register.objects.create(
-            first_name = a , email = b , phone = c , birth_date = d , gender = e , qualification = f ,
-            address = g , landmark = h , country = i ,state = j ,city = k , hobby = l , languages = m , 
-            annual_income = n , about = o , status = p ,profile_photo=q
-        )
-        profile.save()
-        return HttpResponse("<script>alert('Profile updated successfully!'); window.location.href='/user/';</script>")
+        person.first_name = request.POST['name']
+        person.email = request.POST['email']
+        person.phone = request.POST['phone']
+        person.birth_date = request.POST['dob']
+        person.gender = request.POST['gender']
+        person.qualification = request.POST['qualification']
+        person.address = request.POST['address']
+        person.landmark = request.POST['land']
+        person.pincode = request.POST['pin']
+        person.country = request.POST['country']
+        person.state = request.POST['state']
+        person.city = request.POST['city']
+        person.hobby = request.POST['hobby']
+        person.languages = request.POST['language']
+        person.annual_income = request.POST['annual']
+        # person.about = request.POST['about','']
+        # person.status = request.POST['status']
+
+        # person = Register.objects.create(
+        #     first_name = a , email = b , phone = c , birth_date = d , gender = e , qualification = f ,
+        #     address = g , landmark = h , country = i ,state = j ,city = k , hobby = l , languages = m , 
+        #     annual_income = n , about = o , status = p
+        # )
+        person.save()
+        return HttpResponse("<script>window.alert('Congrats...! your Profile has been Updated');window.location.href=('/user/');</script>")
     else:
-        return render(request, 'Profile.html')
+        return render(request, 'Profile.html',{'Data':person})
