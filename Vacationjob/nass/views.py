@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect , HttpResponse
 from django.views.decorators.cache import never_cache
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Register
@@ -31,40 +31,6 @@ def login1(request):
             return render(request, 'login.html', {'error': 'Invalid credentials'})
     
     return render(request, 'login.html')
-# @never_cache
-# def Register(request):
-#   return render(request,'signup.html')
-# @never_cache
-# def reg_view(request):
-#     if request.method=='POST':
-#         print("Form submitted")
-#         name=request.POST['fristname']
-#         email=request.POST['email']
-#         username=request.POST['username']
-#         password=request.POST['password']
-#         phonenumber=request.POST['phonenumber']
-#         # usertype = request.POST['usertype']
-        
-#         if Register.objects.filter(username=username).exists():
-#             messages.error(request, "Username already taken.")
-#             return redirect('reg_view')
-
-#         if Register.objects.filter(email=email).exists():
-#             messages.error(request, "Email already registered.")
-#             return redirect('reg_view')
-
-#         user = Register.objects.create(
-#             first_name=name,
-#             email=email,
-#             username=username,
-#             password=password,
-#             phonenumber=phonenumber
-#             # usertype=usertype,
-#             # is_approved=(usertype != 'authority')  # Auto-approve community users
-#         )
-#         user.save()
-#         print("User created:", user)
-# -----------------------------------------------
 
 @never_cache
 def register_view(request):
@@ -90,36 +56,27 @@ def register_view(request):
         user = User.objects.create_user(username=username, password=password)
         student = Register.objects.create(
             user=user,
-            # username=username, 
             first_name=first_name, 
             email=email, 
             phone=phone
-            # password=password,  # Storing raw passwords in your model is insecure, consider removing this
-            # confirmpassword=confirmpassword,  # Same as above
         )
         
         student.save()
         messages.success(request, 'Registration successful!')
-        return redirect('login1')
+        return HttpResponse("<script>window.alert('Registration successful!');window.location.href=('/login/');</script>")
     
     return render(request, 'signup.html')
 
-        # if usertype == 'community':
-        #     login(request, user)  # Log in the community user immediately
-        #     return redirect("community_dashboard")
-        #     # return redirect("community_dashboard")
-        # elif usertype == 'authority':
-        #     login(request, user)  # Log in the community user immediately
-        #     return redirect("authority_dashboard")
-        # else:
-    #     return redirect('login.html')
-    # else:
-    #     return render(request,'signup.html')
 def admin_dashboard(request):
     return render(request, 'Admin.html')
 
 def user_dashboard(request):
-    return render(request, 'User.html')
+    try:
+        person = Register.objects.get(user=request.user)
+    except:
+        return HttpResponse("<script>window.alert('Problem with user');window.location.href=('/login/');</script>")
+    return render(request, 'User.html',{'person':person})
+
 def verify_dashboard(request):
     return render(request, 'verificationteam.html')
 
@@ -127,7 +84,7 @@ def profile_view(request):
     try:
         person = Register.objects.get(user=request.user)
     except:
-        return HttpResponse("<script>window.alert('Problem with user');window.href.location('/userprofile/');</script>")
+        return HttpResponse("<script>window.alert('Problem with user');window.location.href=('/userprofile/');</script>")
     if request.method == 'POST':
         person.first_name = request.POST['name']
         person.email = request.POST['email']
@@ -146,14 +103,12 @@ def profile_view(request):
         person.languages = request.POST['language']
         person.annual_income = request.POST['annual']
         person.about = request.POST['about']
-        # person.images = request.FILES['images']
-
-        # person = Register.objects.create(
-        #     first_name = a , email = b , phone = c , birth_date = d , gender = e , qualification = f ,
-        #     address = g , landmark = h , country = i ,state = j ,city = k , hobby = l , languages = m , 
-        #     annual_income = n , about = o , status = p
-        # )
+        person.images = request.FILES.get('profile_photo')
         person.save()
         return HttpResponse("<script>window.alert('Congrats...! your Profile has been Updated');window.location.href=('/user/');</script>")
     else:
         return render(request, 'Profile.html',{'Data':person})
+    
+def Logout(request):
+    logout(request)
+    return HttpResponse("<script>window.alert('Log Out Success');window.location.href=('/login/');</script>")

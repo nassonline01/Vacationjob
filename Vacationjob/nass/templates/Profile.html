@@ -36,7 +36,7 @@
             width: 30px;
             background:linear-gradient(135deg,#71b7e6#9b59b6) ;
         }
-        .container form .user-details{
+        .container .user-details{
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
@@ -200,30 +200,29 @@
 <body>
     <form id="registration-form" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
+        
         <div class="container">
             <div class="title">Profile</div>
             <div class="profile-photo-container">
                 <!-- Default or uploaded profile photo -->
                 <img id="profilePhoto" 
-                    src="{{ Data.images.url }}"  
-                    alt="Profile Photo" 
+                    src="{% if Data.images %}{{ Data.images.url }}{% else %}https://www.w3schools.com/w3images/avatar2.png{% endif %}"   
+                    alt="Profile Image" 
                     class="profile-photo">
                     
-                    <!-- Hidden file input for uploading photo -->
-                    <input type="file" name="profile_photo" id="fileUpload" accept="image/*" style="display: none;" onchange="previewProfilePhoto()">
-            
+                <!-- Hidden file input for uploading photo -->
+                <input type="file" name="profile_photo" id="fileUpload" accept="image/*" style="display: none;" onchange="previewProfilePhoto()">
+        
                 <!-- Dropdown Menu -->
                 <div class="dropdown">
-                    <button class="dropdown-btn"><i class="fa fa-edit"></i></button>
+                    <button class="dropdown-btn" disabled><i class="fa fa-edit"></i></button>
                     <div class="dropdown-content">
                         <a href="#" onclick="triggerFileUpload()">Update</a>
                         <a href="/edit-profile">remove</a>
                     </div>
                 </div>
             </div>
-    </form>      
-    <form id="registration-form" method="POST">
-        {% csrf_token %}     
+   
             <div class="user-details">
                 <div class="input-box">
                     <span class="details">Full Name</span>
@@ -343,7 +342,7 @@
     </form>
 
     <script>
-                // Function to trigger the file input click
+            // Function to trigger the file input click
             function triggerFileUpload() {
                 document.getElementById("fileUpload").click();
             }
@@ -359,6 +358,8 @@
 
                 if (file) {
                     reader.readAsDataURL(file);
+                }else {
+                    alert("No file selected or invalid file type!");
                 }
             }
     </script>

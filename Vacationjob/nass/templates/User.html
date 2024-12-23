@@ -50,18 +50,40 @@
             top: -150px; /* Distance from the top of the page */
         }
         .applogo {
-            background-image: url('/static/Images/nassonline.jpg'); /* Replace with your logo path */
-            background-size: contain; /* Ensures the logo fits inside the div */
-            background-repeat: no-repeat; /* Prevents the logo from repeating */
-            width: 45%; /* Adjust the width of the logo */
-            height: 10%; /* Adjust the height of the logo */
-            position: absolute; /* Absolute positioning inside .background-container */
-            top: 3%; /* 50px margin from the top */
-            left: 25%; /* 10% margin from the left side of the container */
+            background-image: url('/static/Images/nassonline.jpg');
+            background-size: cover  ;
+            background-repeat: no-repeat; 
+            width: 13%; 
+            height: 10%; 
+            position: absolute; 
+            top: 3%; 
+            left: 2%;
+            border-radius: 10%;
+        }
+        .user-menu{
+            text-align: right;
+            padding-right: 20px;
+        }
+        .user-menu h2{
+            background-color: rgba(255, 255, 255, 0.5);
+            display: inline-block;
+            border-style: solid;
+            padding: 5px;
+        }
+        .Logout-btn{
+            font-size: large;
+            border-radius: 40%;
+            padding: 5px;
+            background-color: red;
+            color: white;
+            text-decoration: none;
+        }
+        .Logout-btn:hover{
+            background-color: rgb(143, 23, 23);
         }
         .nav-container {
             position: absolute;
-            top: 90px; /* 20px from the top of the container */
+            top: 120px; /* 20px from the top of the container */
             left: 150%; /* Center horizontally */
             transform: translateX(-50%); /* Shift the button by half its width for perfect centering */
             display:flex;/* Use flexbox to arrange items horizontally */
@@ -244,9 +266,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+    <head>
+        <div class="applogo"></div>
+        <div class="user-menu">
+            <h2>Welcome! {{ person.first_name }}</h2><br>
+            <a href="{% url 'Logout' %}" class="Logout-btn">Logout</a>
+        </div>
+    </head>
     <div class="Userbackground">
         <div class="container">
-            <div class="applogo"></div>
+            
             <div class="nav-container">
                      <!-- Updated My Account Button -->
                      <button class="btn" data-url="{% url 'profile_view' %}" onclick="window.location.href=this.getAttribute('data-url')">

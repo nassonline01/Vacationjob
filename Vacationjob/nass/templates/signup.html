@@ -35,7 +35,7 @@
     }
 
     .container{
-        background-color: rgba(229, 221, 66, 0.984);
+        background-color: rgba(229, 221, 66, 0.6);
         padding: 20px;
         border-radius: 10px;
         box-shadow: 0 0 10px rgb(0, 0, 0.1);
@@ -55,7 +55,6 @@
       text-decoration: underline; /* Add underline on hover */
     }
     .container p {
-      color: white; /* Change the color of the <a> tag */
       text-decoration: none; /* Remove underline from the <a> tag */
     }
 
@@ -64,7 +63,6 @@
     }
 
     h1{
-      color: white;
       text-align: center;
       width: 100%;
       margin-top: 15px;
@@ -126,13 +124,13 @@
         <form id="registration-form" action="" method="POST">
             {% csrf_token %}
 
-            <input type="text" id="firstname" placeholder="Enter ur Fristname" name="first_name" required>
+            <input type="text" id="firstname" placeholder="Enter ur First name" name="first_name" required>
             <span id="firstname-error" class="error-message">Firstname must contain only characters.</span><br>
 
             <input type="email" id="email" placeholder="Enter ur Email" name="email" required>
             <span id="email-error" class="error-message" style="display: none;">Please enter a valid email address.</span><br>
 
-            <input type="tel" id="phonenumber" placeholder="Enter ur phonenumber" name="phone" required>
+            <input type="tel" id="phonenumber" placeholder="Enter ur phone number" name="phone" required>
             <span id="phonenumber-error" class="error-message">Phone number must contain only numbers.</span><br>
 
             <input type="text" id="username" placeholder="Enter the username" name="username" required>

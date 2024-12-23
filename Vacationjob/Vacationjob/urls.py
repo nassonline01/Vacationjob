@@ -29,6 +29,7 @@ urlpatterns = [
     path('user/', views.user_dashboard, name='user_dashboard'),
     path('verify/', views.verify_dashboard, name='verify_dashboard'),
     path('userprofile/',views.profile_view, name='profile_view'),
+    path('logout/',views.Logout, name='Logout'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
