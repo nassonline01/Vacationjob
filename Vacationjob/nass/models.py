@@ -23,3 +23,11 @@ class Register(models.Model):
     languages = models.CharField(max_length=100)
     about = models.CharField(max_length=200)
     images = models.ImageField(upload_to='User_Images/')
+
+class BankDetails(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    account_holder =models.CharField(max_length=50)
+    account_number =models.CharField(max_length=20)
+    ifsc_code =models.CharField(max_length=20)
+    bank_name =models.CharField(max_length=50)
+    branch =models.CharField(max_length=50)

@@ -3,7 +3,7 @@ from django.views.decorators.cache import never_cache
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Register
+from .models import Register,BankDetails
 
 
 # Create your views here.
@@ -112,3 +112,10 @@ def profile_view(request):
 def Logout(request):
     logout(request)
     return HttpResponse("<script>window.alert('Log Out Success');window.location.href=('/login/');</script>")
+
+def BankDetails(request):
+    bank_details = BankDetails.objects.filter(user=request.user)
+    return render(request, "User.html", {"bank_details": bank_details})
+
+def Account(request):
+    return render(request,'Account.html')

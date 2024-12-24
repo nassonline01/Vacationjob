@@ -292,9 +292,8 @@
         }
         .logo1{
             position: relative;
-            left: 41%;
-            top: 30%;
-
+            left:75%;
+            top: 25px;
         }
         .contact_det{
             display: flex;
@@ -330,19 +329,29 @@
             z-index: 1000;
         }
         .popup {
+            position: relative;
             background: rgba(5, 44, 56, 0.8);
             padding: 10%;
             border-radius: 10px;
             width: 80%;
             max-width: 600px;
+            max-height: 80vh;
             box-shadow: 0 4px 8px rgba(111, 125, 126, 0.1);
             text-align: center;
             color: #ddd;
+            overflow-y: auto;
         }
         .popup img{
             width: 50%;
             height: 25%;
             border-radius: 5%;
+        }
+        .close-popup{
+            position: absolute;
+            font-size: larger;
+            font-weight: 600;
+            top: 15%;
+            right: 10%;
         }
 
     </style>
@@ -376,19 +385,22 @@
 
     <div class="overlay">
         <div class="popup">
-            <h1>ABOUT</h1>
-            <h2>🎓 Unlock Your Future with Our Vacation Jobs! 🌟</h2>
-            <h4>Welcome to Our Vacation Jobs, your trusted destination for
-                seamless and efficient online examinations. Our mission is to empower learners,
-                job seekers, and professionals by providing them with a secure, flexible, 
-                and user-friendly platform to assess and enhance their knowledge and skills.</h4>
+            <h1>ABOUT US</h1>
+            <h2>🎓 Welcome to Vacation Jobs,😊 your ultimate destination for discovering 
+                exciting vacation job opportunities! 🌟</h2>
+            <p>A Vacation Jobs Portal is an online platform designed to connect individuals seeking temporary or
+                 seasonal employment with businesses and organizations offering short-term opportunities.</p>
+            <p>These portals cater to a wide audience, including students,
+                freelancers, and individuals looking for supplementary income during holidays or specific periods.</p>
             <img src="static/Images/Image8.jpg" alt="No image">
             <button class="close-popup">Close ❌</button>
-            <h3>Who We Are?</h3>
-            <h4>We are a dedicated team of education and technology experts passionate about creating 
-                innovative solutions for modern learning and assessment needs. Our platform is designed 
-                to cater to a diverse audience, ranging from students preparing for government exams to 
-                professionals aiming for certifications.</h4>
+            <h2>Who We Are?</h2>
+            <p>At Vacation Jobs, we believe in making the most of your time, whether 
+                you’re a student looking to gain experience during holidays, a professional seeking short-term projects,
+                 or someone wanting to earn extra income while exploring new opportunities.</p>
+            <p>We are a dedicated team passionate about connecting job seekers with employers offering 
+                short-term, seasonal, and part-time jobs. Our mission is to simplify the job search process, ensuring 
+                that everyone can find the right fit for their skills, schedule, and aspirations.</p>
         </div>
     </div>
 
@@ -534,6 +546,8 @@
             <a href="#"><i class="fa fa-phone"></i> 727 0000 222</a>
             <a href="https://nassonline.in/"><i class="fa fa-globe"></i> nassonline.in</a>
         </div>
+        <hr style="position: relative;top: 70px;">
+        <h3 style="color: #ddd;position: relative;top: 65px;margin-left: 10px;">© 2024 NASS ONLINE PRACTISE PVT LTD. All rights reserved.</h3>
         <div class="logo1">
             <a href="https://www.facebook.com/NassOnlinetvm"><i class="fa fa-facebook-square" style="font-size:26px;color:white;"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="https://www.instagram.com/nassonlineadme/"><i class="fa fa-instagram" style="font-size:26px;color:white"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -543,6 +557,7 @@
             <a href="https://x.com/NassOnline"><i class="fa fa-twitter" style="font-size:26px;color:white"></i></a>
         </div>
     </div>
+    
     <script>
         //About Click Event
 

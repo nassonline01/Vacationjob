@@ -30,6 +30,8 @@ urlpatterns = [
     path('verify/', views.verify_dashboard, name='verify_dashboard'),
     path('userprofile/',views.profile_view, name='profile_view'),
     path('logout/',views.Logout, name='Logout'),
+    path('AC/',views.Account, name='Account'),
+    path('bankDetail/',views.BankDetails, name='BankDetails'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

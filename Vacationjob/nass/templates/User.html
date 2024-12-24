@@ -9,10 +9,7 @@
             margin: 0;
             padding: 0;
             overflow: hidden;
-            /* display: flex;
-            justify-content: center;
-            align-items: center; 
-            height: 100vh;  */
+            
         }
         .Userbackground {
             background-image: url('/static/Images/fauxels.jpg'); /* Replace with your background image path */
@@ -25,7 +22,7 @@
             width: 100%;
             top: 0;
             left: 0;
-            z-index: -1; /* Put the background behind other content */
+            z-index: -1; 
         }
         h1{
             color:black;
@@ -119,83 +116,82 @@
             transition: transform 0.3s ease; /* Smooth rotation animation */
         }
         .dropdown-content{
-                display: none; /* Initially hide the dropdown */
-                position: absolute;
-                align-items: center;
-                background-color:white; /* Dropdown background */
-                min-width: 80px;
-                box-shadow: 0px 8px 16px rgba(0,0,0,0.2); /* Add shadow */
-                z-index: 1;
-                top: 90%; /* Position below the button */
-                left: 45%;
-                border-radius: 8px;
-                padding: 0; /* Remove extra padding from <ul> */
-                list-style-type: none; /* Remove bullets */
-            }
+            display: none; /* Initially hide the dropdown */
+            position: absolute;
+            align-items: center;
+            background-color:white; /* Dropdown background */
+            min-width: 80px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2); /* Add shadow */
+            z-index: 1;
+            top: 90%; /* Position below the button */
+            left: 45%;
+            border-radius: 8px;
+            padding: 0; /* Remove extra padding from <ul> */
+            list-style-type: none; /* Remove bullets */
+        }
          
       
         .dropdown-content li {
-                position: relative; /* Needed to position nested dropdown */
-                display: flex;
-                align-items: center; 
-                gap: 8px; 
-                margin-left: 20px;
-                
-            }
+            position: relative; 
+            display: flex;
+            align-items: center; 
+            gap: 8px; 
+            margin-left: 20px;
+            
+        }
         .dropdown-content li a {
-                color: black;
-                /* padding: 12px 16px; */
-                padding:8px 12px;
-                text-decoration: none;
-                display: flex;
-                align-items:baseline; 
-                justify-content: center; 
-                gap: 8px; 
-            }
-            .dropdown-content1{
-                display: none; /* Initially hide the dropdown */
-                position: absolute;
-                align-items: center;
-                background-color:white; /* Dropdown background */
-                min-width: 100px;
-                box-shadow: 0px 8px 16px rgba(0,0,0,0.2); /* Add shadow */
-                z-index: 1;
-                top: 90%; /* Position below the button */
-                left: 78%;
-                border-radius: 8px;
-                padding: 0; /* Remove extra padding from <ul> */
-                list-style-type: none; /* Remove bullets */
-            }
-            .dropdown-content1 li {
-                position: relative; /* Needed to position nested dropdown */
-                display: flex;
-                align-items: center; 
-                gap: 8px; 
-                margin-left: 20px;
-                
-            } 
-            .dropdown-content1 li a {
-                color: black;
-                /* padding: 12px 16px; */
-                padding:8px 12px;
-                text-decoration: none;
-                display: flex;
-                align-items:baseline; 
-                justify-content: center; 
-                gap: 8px; 
-            } 
-        /* Rotate the chevron icon when the dropdown is active */
+            color: black;
+            /* padding: 12px 16px; */
+            padding:8px 12px;
+            text-decoration: none;
+            display: flex;
+            align-items:baseline; 
+            justify-content: center; 
+            gap: 8px; 
+        }
+        .dropdown-content1{
+            display: none; /* Initially hide the dropdown */
+            position: absolute;
+            align-items: center;
+            background-color:white; /* Dropdown background */
+            min-width: 100px;
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.2); /* Add shadow */
+            z-index: 1;
+            top: 90%; /* Position below the button */
+            left: 78%;
+            border-radius: 8px;
+            padding: 0; /* Remove extra padding from <ul> */
+            list-style-type: none; /* Remove bullets */
+        }
+        .dropdown-content1 li {
+            position: relative; 
+            display: flex;
+            align-items: center; 
+            gap: 8px; 
+            margin-left: 20px;
+            
+        } 
+        .dropdown-content1 li a {
+            color: black;
+            /* padding: 12px 16px; */
+            padding:8px 12px;
+            text-decoration: none;
+            display: flex;
+            align-items:baseline; 
+            justify-content: center; 
+            gap: 8px; 
+        } 
         .btn.active .chevron-icon {
-            transform: rotate(90deg); /* Rotate to indicate dropdown is open */
+            transform: rotate(90deg);
         }
         .chevron-icon.active {
-            transform: rotate(90deg); /* Rotate the chevron when active */
+            transform: rotate(90deg); 
         }
         .nested-dropdown-content {
-            display: none; /* Hide nested dropdown by default */
+            display: none; 
             position: absolute;
             min-width: 200px;
-            left: 104%; /* Position it to the right of the parent */
+            left: 104%; 
             top: 3%;
             background-color: white;
             box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
@@ -204,13 +200,11 @@
             padding: 0;
         }
         .nested-dropdown-content li {
-            margin-bottom: 15px; /* Space between list items */
+            margin-bottom: 15px; 
             margin-left: 20px;
         }
          .nested-dropdown-content li a {
             color: black;
-            /* padding: 12px 16px; */
-            /* margin-left: 40px; */
             text-decoration: none;
             display: block;
         }
@@ -218,7 +212,7 @@
             background-color: #f1f1f1;
         }
         .dropdown:hover .nested-dropdown-content {
-            display: block; /* Show nested dropdown on hover */
+            display: block; 
         }
 
         .btn1 {
@@ -241,24 +235,69 @@
         .btn1:hover {
             background-color: rgb(35, 76, 63);
         }
-        .tab {
-            display:none; /* Use flexbox */
-            flex-direction: column; /* Ensure children stack vertically */
-            justify-content: flex-start; /* Align content at the top of the container */
-            border-radius: 8px;
-            margin-top: -5px;
-            width: 200%; /* Adjust width as desired */
-            margin-left: 125%; /* Remove extra margin */
-            top: 20%;
-            }
-    
-            .tab h2{
-            margin-left: 30%;
-            margin-top: 20px; 
-            color: black;
-            font-size: 34px;
+        .popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .popup.hidden {
+            display: none;
+        }
+        .popup-content {
+            background: #fff;
+            border-radius: 10px;
+            padding: 30px ;
+            width: 400px;
+            max-width: 90%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             text-align: center;
-            }
+        }
+        .popup-content h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .popup-content form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .popup-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .popup-buttons .close-btn,
+        .popup-buttons .save-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .popup-buttons .close-btn {
+            background: #d9534f;
+            color: #fff;
+        }
+        .popup-buttons .close-btn:hover {
+            background: #800b07;
+        }
+        .popup-buttons .save-btn {
+            background: #5cb85c;
+            color: #fff;
+        }
+        .popup-buttons .save-btn:hover {
+            background: #0a660a;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -273,14 +312,38 @@
             <a href="{% url 'Logout' %}" class="Logout-btn">Logout</a>
         </div>
     </head>
+    
+    <div id="popup" class="popup hidden">
+        <div class="popup-content">
+            <h2>Add Bank Details</h2>
+            <form id="bankDetailsForm" method="post" action="">
+                {% csrf_token %}
+                <label for="accountHolder">Account Holder Name</label>
+                <input type="text" id="accountHolder" name="accountHolder" required>
+    
+                <label for="accountNumber">Account Number</label>
+                <input type="text" id="accountNumber" name="accountNumber" required>
+    
+                <label for="ifscCode">IFSC Code</label>
+                <input type="text" id="ifscCode" name="ifscCode" required>
+    
+                <label for="bankName">Bank Name</label>
+                <input type="text" id="bankName" name="bankName" required>
+    
+                <div class="popup-buttons">
+                    <button type="button" id="closePopup" class="close-btn">Cancel</button>
+                    <button type="submit" class="save-btn">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
     <div class="Userbackground">
         <div class="container">
             
             <div class="nav-container">
-                     <!-- Updated My Account Button -->
-                     <button class="btn" data-url="{% url 'profile_view' %}" onclick="window.location.href=this.getAttribute('data-url')">
+                <button class="btn" data-url="{% url 'profile_view' %}" onclick="window.location.href=this.getAttribute('data-url')">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24">
-                        <!--! Font Awesome Free 6.7.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc. -->
                         <path d="M112 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm40 304l0 128c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-223.1L59.4 304.5c-9.1 15.1-28.8 20-43.9 10.9s-20-28.8-10.9-43.9l58.3-97c17.4-28.9 48.6-46.6 82.3-46.6l29.7 0c33.7 0 64.9 17.7 82.3 46.6l58.3 97c9.1 15.1 4.2 34.8-10.9 43.9s-34.8 4.2-43.9-10.9L232 256.9 232 480c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-128-16 0z" fill="white"/>
                     </svg>
                     My Account
@@ -296,15 +359,17 @@
                 </button>
                 <ul class="dropdown-content" id="dropdownContent">
                     <li id="overviewLink">
-                        <a href="#">Overview <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
+                        <a href="#">Overview 
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
                             <polyline points="9 6 15 12 9 18"></polyline>
-                        </svg></a>
+                            </svg>
+                        </a>
                     </li> 
                     
-                        <ul class="nested-dropdown-content" id="nestedDropdownContent">
-                            <li><a href="#">Total Commision</a></li>
-                            <li><a href="#">Lifelong Commision</a></li>
-                         </ul>
+                    <ul class="nested-dropdown-content" id="nestedDropdownContent">
+                        <li><a href="#">Total Commision</a></li>
+                        <li><a href="#">Lifelong Commision</a></li>
+                        </ul>
                     
                     <li id="overviewLink">
                         <a href="#">Resource <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
@@ -322,7 +387,7 @@
                     </svg>
                 </button>
                 <ul class="dropdown-content1" id="withdrawalContent">
-                    <li id="overviewLink"><a href="#">Account details<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
+                    <li id="overviewLink"><a href="#" id="openPopup">Account details<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
                         <polyline points="9 18 15 12 9 6"></polyline>
                     </svg></a></li>
                     <li id="overviewLink"><a href="#">Amount<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
@@ -335,90 +400,89 @@
                 </div>
             </div>
     <script>
-                            // Get the Dashboard dropdown button and its associated content
-                const dropdownBtn = document.getElementById('dropdownBtn');
-                const dropdownContent = document.getElementById('dropdownContent');
 
-                // Get the Withdrawal dropdown button and its associated content
-                const withdrawalBtn = document.getElementById('withdrawalBtn');
-                const withdrawalContent = document.getElementById('withdrawalContent');
+        // Get the Dashboard dropdown button and its associated content
+        const dropdownBtn = document.getElementById('dropdownBtn');
+        const dropdownContent = document.getElementById('dropdownContent');
 
-                // Get the Overview dropdown and its nested content
-                const overviewLink = document.querySelector('#dropdownContent li:nth-child(1) > a');
-                const nestedDropdownContent = document.getElementById('nestedDropdownContent');
+        // Get the Withdrawal dropdown button and its associated content
+        const withdrawalBtn = document.getElementById('withdrawalBtn');
+        const withdrawalContent = document.getElementById('withdrawalContent');
 
-                // Function to toggle dropdown visibility
-                function toggleDropdown(button, content) {
-                    content.style.display = content.style.display === 'block' ? 'none' : 'block';
-                    button.classList.toggle('active');
+        // Get the Overview dropdown and its nested content
+        const overviewLink = document.querySelector('#dropdownContent li:nth-child(1) > a');
+        const nestedDropdownContent = document.getElementById('nestedDropdownContent');
+
+        // Function to toggle dropdown visibility
+        function toggleDropdown(button, content, allDropdowns) {
+            // Hide all other dropdowns
+            allDropdowns.forEach(dropdown => {
+                if (dropdown !== content) {
+                    dropdown.style.display = 'none';
                 }
-                
-
-                // Event listener for Dashboard dropdown
-                dropdownBtn.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Prevent click from bubbling to document
-                    toggleDropdown(dropdownBtn, dropdownContent);
-                });
-
-                // Event listener for Withdrawal dropdown
-                withdrawalBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    toggleDropdown(withdrawalBtn, withdrawalContent);
-                });
-
-                // Event listener for Overview nested dropdown
-                overviewLink.addEventListener('click', (e) => {
-                    e.preventDefault(); // Prevent default anchor behavior
-                    e.stopPropagation();
-                    nestedDropdownContent.style.display = nestedDropdownContent.style.display === 'block' ? 'none' : 'block';
-                });
-
-                window.addEventListener("click", function (event) {
-                    // Get elements for all dropdowns and buttons
-                    const dropdownContent = document.getElementById("dropdownContent");
-                    const dropdownContent1 = document.getElementById("withdrawalContent");
-                    const dropdownBtn = document.getElementById("dropdownBtn");
-                    const btn = document.getElementById("withdrawalBtn");
-                    const overviewLink = document.getElementById("overviewLink");
-                    const nestedDropdownContent = document.getElementById("nestedDropdownContent");
-                
-                    // Close all dropdowns if clicked outside any of them
-                    if (!dropdownBtn.contains(event.target) && !dropdownContent.contains(event.target)) {
-                        dropdownContent.style.display = "none";
-                        dropdownBtn.classList.remove("active"); // Remove chevron rotation for main button
-                    }
-                
-                    if (!btn.contains(event.target) && !dropdownContent1.contains(event.target)) {
-                        dropdownContent1.style.display = "none";
-                        btn.classList.remove("active"); // Remove chevron rotation for main button
-                    }
-                
-                    // Close nested dropdown if clicked outside of "Overview"
-                    if (!overviewLink.contains(event.target) && !nestedDropdownContent.contains(event.target)) {
-                        nestedDropdownContent.style.display = "none";
-                        overviewLink.querySelector(".chevron-icon").classList.remove("active");
-                    }
-                
-                    // Hide all sections if clicked outside any section (optional, based on your setup)
-                    const sections = document.querySelectorAll('.tab'); // Assuming tabs are sections
-                    sections.forEach(function(section) {
-                        if (!section.contains(event.target)) {
-                            section.style.display = "none"; // Hide the section
-                        }
-                    });
-                
-
-            // Hide all sections if clicking outside any section
-            <!-- hideAllSections(); -->
-            document.getElementById('profileButton').addEventListener('click', function() {
-                window.location.href = "{% url 'profile_view' %}";
             });
-                });
-           
-    </script>
-                
+            content.style.display = content.style.display === 'block' ? 'none' : 'block';
+            button.classList.toggle('active');
+        }
 
-           
+        // Event listener for Dashboard dropdown
+        dropdownBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent click from bubbling to document
+            toggleDropdown(dropdownBtn, dropdownContent, [dropdownContent, withdrawalContent, nestedDropdownContent]);
+        });
+
+        // Event listener for Withdrawal dropdown
+        withdrawalBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleDropdown(withdrawalBtn, withdrawalContent, [dropdownContent, withdrawalContent, nestedDropdownContent]);
+        });
+
+        // Event listener for Overview nested dropdown
+        overviewLink.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent click from bubbling to parent dropdown
+            nestedDropdownContent.style.display = nestedDropdownContent.style.display === 'block' ? 'none' : 'block'; // Toggle the nested dropdown content
+        });
+
+        // Click outside logic to hide all dropdowns
+        window.addEventListener("click", function (event) {
+            const allDropdowns = [dropdownContent, withdrawalContent, nestedDropdownContent];
+
+            // Close all dropdowns if clicked outside any of them
+            allDropdowns.forEach(content => {
+                if (!content.contains(event.target) && !content.previousElementSibling.contains(event.target)) {
+                    content.style.display = 'none';
+                    content.previousElementSibling.classList.remove('active');
+                }
+            });
+        });
+            
+        // Get the popup and buttons
+        const popup = document.getElementById("popup");
+        const openPopup = document.getElementById("openPopup");
+        const closePopup = document.getElementById("closePopup");
+        const form = document.getElementById("bankDetailsForm");
+
+        // Open the popup
+        openPopup.addEventListener("click", () => {
+            popup.classList.remove("hidden");
+        });
+
+        // Close the popup
+        closePopup.addEventListener("click", () => {
+            popup.classList.add("hidden");
+        });
+
+        // Form submission
+        form.addEventListener("submit", () => {
+            // Show success message
+            alert("Bank details saved successfully!");
+            // Clear the form and close the popup
+            form.reset();
+            popup.classList.add("hidden");
+        });
+
+    </script>
+              
     </div>  
 </body>
 </html>
