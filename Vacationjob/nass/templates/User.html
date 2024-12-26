@@ -316,7 +316,7 @@
     <div id="popup" class="popup hidden">
         <div class="popup-content">
             <h2>Add Bank Details</h2>
-            <form id="bankDetailsForm" method="post" action="">
+            <form id="bankDetailsForm" method="post" action="{% url 'BankDetails' %}">
                 {% csrf_token %}
                 <label for="accountHolder">Account Holder Name</label>
                 <input type="text" id="accountHolder" name="accountHolder" required>
@@ -346,7 +346,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" width="24" height="24">
                         <path d="M112 48a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm40 304l0 128c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-223.1L59.4 304.5c-9.1 15.1-28.8 20-43.9 10.9s-20-28.8-10.9-43.9l58.3-97c17.4-28.9 48.6-46.6 82.3-46.6l29.7 0c33.7 0 64.9 17.7 82.3 46.6l58.3 97c9.1 15.1 4.2 34.8-10.9 43.9s-34.8 4.2-43.9-10.9L232 256.9 232 480c0 17.7-14.3 32-32 32s-32-14.3-32-32l0-128-16 0z" fill="white"/>
                     </svg>
-                    My Account
+                    My Profile
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon"></svg>
                 </button>
                     
@@ -367,16 +367,17 @@
                     </li> 
                     
                     <ul class="nested-dropdown-content" id="nestedDropdownContent">
+                        <li><a href="{% url 'dashboard' %}">My Tasks</a></li>
                         <li><a href="#">Total Commision</a></li>
                         <li><a href="#">Lifelong Commision</a></li>
-                        </ul>
+                    </ul>
                     
                     <li id="overviewLink">
-                        <a href="#">Resource <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
+                        <a href="{% url 'JobList' %}">Resource <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="chevron-icon">
                         <polyline points="9 18 15 12 9 6"></polyline>
                     </svg></a>
                     </li> 
-                    
+
                 </ul> 
                         <!-- Withdrawal Button -->
                 <button class="btn" id="withdrawalBtn">
@@ -472,14 +473,13 @@
             popup.classList.add("hidden");
         });
 
-        // Form submission
+        /*// Form submission
         form.addEventListener("submit", () => {
             // Show success message
             alert("Bank details saved successfully!");
             // Clear the form and close the popup
-            form.reset();
             popup.classList.add("hidden");
-        });
+        });*/
 
     </script>
               

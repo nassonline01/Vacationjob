@@ -1,10 +1,10 @@
-from django.shortcuts import render,redirect , HttpResponse
+from django.shortcuts import render,redirect , HttpResponse , get_object_or_404
 from django.views.decorators.cache import never_cache
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Register,BankDetails
-
+from .models import Register,BankDetails,Task,Wallet
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 @never_cache
@@ -113,9 +113,44 @@ def Logout(request):
     logout(request)
     return HttpResponse("<script>window.alert('Log Out Success');window.location.href=('/login/');</script>")
 
-def BankDetails(request):
-    bank_details = BankDetails.objects.filter(user=request.user)
-    return render(request, "User.html", {"bank_details": bank_details})
+def Bank_Details(request):
+    if request.method == 'POST': 
+        user = User.objects.get(username=request.user)
+        account_holder = request.POST['accountHolder']
+        account_number = request.POST['accountNumber']
+        ifsc_code = request.POST['ifscCode']
+        bank_name = request.POST['bankName']
+        bank_details = BankDetails.objects.create(
+            user = user , account_holder =account_holder ,account_number=account_number,
+            ifsc_code =ifsc_code,bank_name =bank_name
+        )
+        bank_details.save()
+        return HttpResponse("<script>window.alert(' Bank Details saved');window.location.href=('/user/');</script>")
+    else:
+        return render(request, "User.html", {"bank_details": bank_details})
 
 def Account(request):
     return render(request,'Account.html')
+
+def dashboard(request):
+    user = request.user
+    tasks = Task.objects.filter(assigned_to=user)
+    wallet, created = Wallet.objects.get_or_create(user=user)
+    return render(request, 'dashboard.html', {'tasks': tasks, 'wallet': wallet})    
+
+def JobList(request):
+    # tasks = Task.objects.filter(assigned_to__isnull=True).order_by('deadline')  
+    tasks = Task.objects.all()
+    return render(request, 'joblist.html', {'tasks': tasks})
+
+@login_required
+def claim_task(request, task_id):
+    task = get_object_or_404(Task, id=task_id)
+
+    if task.assigned_to is None:
+        task.assigned_to = request.user
+        task.status = 'Pending'
+        task.save()
+
+        return redirect('JobList')   
+    return redirect('JobList')

@@ -25,13 +25,16 @@ urlpatterns = [
     path('',views.index,name='index'),
     path('login/',views.login1,name='login1'),
     path('register/',views.register_view,name='register_view'),
-    path('dashboard/', views.admin_dashboard, name='admin_dashboard'),
+    path('admin_dash/', views.admin_dashboard, name='admin_dashboard'),
     path('user/', views.user_dashboard, name='user_dashboard'),
     path('verify/', views.verify_dashboard, name='verify_dashboard'),
     path('userprofile/',views.profile_view, name='profile_view'),
     path('logout/',views.Logout, name='Logout'),
     path('AC/',views.Account, name='Account'),
-    path('bankDetail/',views.BankDetails, name='BankDetails'),
+    path('bankDetail/',views.Bank_Details, name='BankDetails'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('Jobs/', views.JobList, name='JobList'),
+    path('claim-task/<int:task_id>/', views.claim_task, name='claim_task'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

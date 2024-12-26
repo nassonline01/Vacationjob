@@ -31,3 +31,17 @@ class BankDetails(models.Model):
     ifsc_code =models.CharField(max_length=20)
     bank_name =models.CharField(max_length=50)
     branch =models.CharField(max_length=50)
+
+class Task(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    payout = models.DecimalField(max_digits=6, decimal_places=2)
+    deadline = models.DateTimeField()
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks_created')
+    assigned_to = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='tasks_assigned')
+    proof = models.TextField(blank=True)
+    status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('Approved', 'Approved'), ('Rejected', 'Rejected')], default='Pending')
+
+class Wallet(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
