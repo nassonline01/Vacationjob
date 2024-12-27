@@ -34,7 +34,7 @@ urlpatterns = [
     path('bankDetail/',views.Bank_Details, name='BankDetails'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('Jobs/', views.JobList, name='JobList'),
-    path('claim-task/<int:task_id>/', views.claim_task, name='claim_task'),
+    path('submit-task/<int:task_id>/', views.submit_task, name='submit_task'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

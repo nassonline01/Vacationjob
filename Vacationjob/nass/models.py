@@ -42,6 +42,16 @@ class Task(models.Model):
     proof = models.TextField(blank=True)
     status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('Approved', 'Approved'), ('Rejected', 'Rejected')], default='Pending')
 
+class TaskUserAssignment(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    is_claimed = models.BooleanField(default=False)
+    proof_submitted = models.BooleanField(default=False)
+    proof_screenshot = models.ImageField(upload_to='task_proofs/screenshots/', blank=True, null=True)
+    proof_video = models.FileField(upload_to='task_proofs/videos/', blank=True, null=True)
+    proof_text = models.TextField(blank=True, null=True)
+    actions = models.JSONField(default=dict)
+
 class Wallet(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)

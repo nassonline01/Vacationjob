@@ -3,9 +3,9 @@ from django.views.decorators.cache import never_cache
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Register,BankDetails,Task,Wallet
+from .models import Register,BankDetails,Task,Wallet ,TaskUserAssignment
 from django.contrib.auth.decorators import login_required
-
+from .forms import TaskSubmissionForm
 # Create your views here.
 @never_cache
 def index(request):
@@ -144,13 +144,23 @@ def JobList(request):
     return render(request, 'joblist.html', {'tasks': tasks})
 
 @login_required
-def claim_task(request, task_id):
+def submit_task(request, task_id):
+
     task = get_object_or_404(Task, id=task_id)
+    user_assignment, created = TaskUserAssignment.objects.get_or_create(task=task,user=request.user)
+    if request.method == 'POST':
+        form = TaskSubmissionForm(request.POST, request.FILES, instance=user_assignment)
+        if form.is_valid():
+            submission = form.save(commit=False)
+            submission.actions = {
+                'like': form.cleaned_data['like'],
+                'subscribe': form.cleaned_data['subscribe'],
+                'follow': form.cleaned_data['follow'],
+                'comment': form.cleaned_data['comment']
+            }
+            submission.save()
+            return  HttpResponse("<script>window.alert('Your Work Submitted Successfully');window.location.href=('/dashboard/');</script>")
+    else:
+        form = TaskSubmissionForm(instance=user_assignment)
 
-    if task.assigned_to is None:
-        task.assigned_to = request.user
-        task.status = 'Pending'
-        task.save()
-
-        return redirect('JobList')   
-    return redirect('JobList')
+    return render(request, 'submit_task.html', {'form': form, 'task': task})
