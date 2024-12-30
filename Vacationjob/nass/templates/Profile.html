@@ -194,7 +194,18 @@
         form .button input:hover{
             background: linear-gradient(-135deg,#71b7e6, #9b59b6); 
         }
-
+        .bk_btn{
+            position: relative;
+            left: 85%;
+            text-decoration: none;
+            border-radius: 5px;
+            background-color: #9b59b6;
+            color: white;
+            padding: 7px;
+        }
+        .bk_btn:hover{
+            background-color: #640f86;
+        }
     </style>
 </head>
 <body>
@@ -203,6 +214,7 @@
         
         <div class="container">
             <div class="title">Profile</div>
+            <a href="{% url 'user_dashboard' %}" class="bk_btn">⇐ Go Back</a> 
             <div class="profile-photo-container">
                 <!-- Default or uploaded profile photo -->
                 <img id="profilePhoto" 
@@ -318,7 +330,7 @@
                     <input type="text" name="hobby" placeholder="Enter your hobbies" value="{{ Data.hobby }}" required>
                 </div>
                 <div class="input-box">
-                    <span class="details">Languages</span>
+                    <span class="details">Languages Known</span>
                     <input type="text" name="language" placeholder="Enter your income" value="{{ Data.languages }}" required>
                 </div>
                 <div class="input-box">

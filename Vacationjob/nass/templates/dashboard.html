@@ -41,13 +41,21 @@
                 </tr>
             </thead>
             <tbody>
-                {% for task in tasks %}
+                {% for assignment in assignments %}
                 <tr>
-                    <td>{{ task.title }}</td>
-                    <td>{{ task.description }}</td>
-                    <td>₹{{ task.payout }}</td>
-                    <td>{{ task.deadline }}</td>
-                    <td>{{ task.status }}</td>
+                    <td>{{ assignment.task.title }}</td>
+                    <td>{{ assignment.task.description }}</td>
+                    <td>₹{{ assignment.task.payout }}</td>
+                    <td>{{ assignment.task.deadline }}</td>
+                    <td>
+                        {% if assignment.submission_status == 'Pending' %}
+                            <span style="color: blue;">Pending</span>
+                        {% elif assignment.submission_status == 'Rejected' %}
+                            <span style="color: red;">Rejected</span>
+                        {% elif assignment.submission_status == 'Approved' %}
+                            <span style="color: green;">Approved</span>
+                        {% endif %}
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>

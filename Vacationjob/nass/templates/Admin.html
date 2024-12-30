@@ -430,43 +430,18 @@
                             <th>Email</th>
                             <th>Phonenumber</th>
                             <th>Reference Id</th>
-                            <th>Paid Amount</th>
-                            <th>Unpaid Amount</th>
+                            <th>Pending Amount</th>
+                            <th>Approval Amount</th>
                             <th>Total Amount</th>
-                            <th>Pending Approval</th>
-                            
                         </tr>
                     </thead>
-                    <!-- <tbody id="detailsTableBody">
-                        {% for authority in authorities %}
-                        <tr>
-                            <td>{{ authority.username }}</td>
-                            <td>{{ authority.first_name }}</td>
-                            <td>{{ authority.email }}</td>
-                            <td>{{ authority.phonenumber }}</td>
-                            <td>{{ authority.address }}</td>
-                            <td>{{ authority.jurisdiction }}</td>
-                            <td>{{ authority.description }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody> -->
+                    <tbody>
+                        
+                    </tbody>
                 </table>
             </div>
         </div> 
-        <script>
-            function toggleSection(sectionId) {
-                // Get all sections with the class "main"
-                document.querySelectorAll(".main").forEach((section) => {
-                    if (section.id === sectionId) {
-                        // Toggle the visibility of the clicked section
-                        section.style.display = section.style.display === "block" ? "none" : "block";
-                    } else {
-                        // Hide all other sections
-                        section.style.display = "none";
-                    }
-                });
-            }
-        </script>
+
 <!-- --------------------------------------------------------------------------------------------------------------- -->
          <div class="main" id="promotions">
             <h2>Promotions Section</h2>
@@ -507,16 +482,7 @@
                 </table>
             </div>
         </div>
-<!-- --------------------------------------------------------------------------------------------------------------------------------------------- -->
-        <!-- <div class="main" id="settings">
-            <h2>Settings Section</h2>
-        </div> -->
-    <!-- <script>
-        function toggleUsersList() {
-            const mainDiv = document.querySelector('.main');
-            mainDiv.style.display = (mainDiv.style.display === 'none' || mainDiv.style.display === '') ? 'block' : 'none';
-        }
-    </script> -->
+
     </div>   
 </body>
 </html>

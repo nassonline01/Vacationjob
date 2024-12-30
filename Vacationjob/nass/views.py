@@ -1,4 +1,5 @@
-from django.shortcuts import render,redirect , HttpResponse , get_object_or_404
+from django.shortcuts import render,redirect , HttpResponse , get_object_or_404 ,HttpResponseRedirect
+from django.urls import reverse
 from django.views.decorators.cache import never_cache
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
@@ -6,6 +7,9 @@ from django.contrib import messages
 from .models import Register,BankDetails,Task,Wallet ,TaskUserAssignment
 from django.contrib.auth.decorators import login_required
 from .forms import TaskSubmissionForm
+from django.utils.timezone import now 
+from PIL import Image
+from django.core.exceptions import ValidationError
 # Create your views here.
 @never_cache
 def index(request):
@@ -68,7 +72,11 @@ def register_view(request):
     return render(request, 'signup.html')
 
 def admin_dashboard(request):
-    return render(request, 'Admin.html')
+    user = request.user
+    assignments = TaskUserAssignment.objects.filter(user=user).select_related('task')
+    wallet, created = Wallet.objects.get_or_create(user=user)
+    return render(request, 'dashboard.html', {'assignments': assignments, 'wallet': wallet})
+
 
 def user_dashboard(request):
     try:
@@ -134,9 +142,9 @@ def Account(request):
 
 def dashboard(request):
     user = request.user
-    tasks = Task.objects.filter(assigned_to=user)
+    assignments = TaskUserAssignment.objects.filter(user=user).select_related('task')
     wallet, created = Wallet.objects.get_or_create(user=user)
-    return render(request, 'dashboard.html', {'tasks': tasks, 'wallet': wallet})    
+    return render(request, 'dashboard.html', {'assignments': assignments, 'wallet': wallet})   
 
 def JobList(request):
     # tasks = Task.objects.filter(assigned_to__isnull=True).order_by('deadline')  
@@ -145,22 +153,68 @@ def JobList(request):
 
 @login_required
 def submit_task(request, task_id):
-
     task = get_object_or_404(Task, id=task_id)
-    user_assignment, created = TaskUserAssignment.objects.get_or_create(task=task,user=request.user)
+
+    # Check if the task is already claimed
+    user_assignment, created = TaskUserAssignment.objects.get_or_create(task=task, user=request.user)
+    if not created and user_assignment.proof_submitted == True:   
+        messages.warning(request, "You have already submitted this task.")
+        return redirect('JobList')
+
     if request.method == 'POST':
         form = TaskSubmissionForm(request.POST, request.FILES, instance=user_assignment)
         if form.is_valid():
             submission = form.save(commit=False)
+            screenshot = form.cleaned_data.get('screenshot')
+            if screenshot:
+                validate_image(screenshot)
             submission.actions = {
-                'like': form.cleaned_data['like'],
-                'subscribe': form.cleaned_data['subscribe'],
-                'follow': form.cleaned_data['follow'],
-                'comment': form.cleaned_data['comment']
+                'like': form.cleaned_data.get('like'),
+                'subscribe': form.cleaned_data.get('subscribe'),
+                'follow': form.cleaned_data.get('follow'),
+                'comment': form.cleaned_data.get('comment')
             }
+            submission.proof_submitted = True
             submission.save()
-            return  HttpResponse("<script>window.alert('Your Work Submitted Successfully');window.location.href=('/dashboard/');</script>")
+            messages.success(request, "Your work has been submitted successfully.")
+            return redirect('JobList')  
+        else:
+            messages.error(request, "There was an error with your submission.")
     else:
         form = TaskSubmissionForm(instance=user_assignment)
 
     return render(request, 'submit_task.html', {'form': form, 'task': task})
+
+def track_and_redirect(request, task_id):
+    assignment = TaskUserAssignment.objects.filter(task_id=task_id, user=request.user).first()
+    if assignment:
+        assignment.clicked_at = now()
+        assignment.save()
+    target_url = request.GET.get('url', 'https://www.facebook.com') 
+    return redirect(target_url)
+
+def validate_image(image):
+    try:
+        img = Image.open(image)
+        img.verify()  # Verify the image file integrity
+    except Exception:
+        raise ValidationError("Invalid image file.")
+    
+def update_wallet(user, amount):
+    wallet, created = Wallet.objects.get_or_create(user=user)
+    wallet.balance += amount
+    wallet.save()
+
+def update_task_assignment_status(request, assignment_id):
+    if request.method == 'POST':
+        assignment = TaskUserAssignment.objects.get(id=assignment_id)
+        new_status = request.POST.get('status')
+
+        if new_status == 'approved' and assignment.status != 'approved':
+            update_wallet(assignment.user, assignment.task.payout)
+
+        assignment.status = new_status
+        assignment.save()
+
+        messages.success(request, "Task status updated successfully!")
+        return redirect('dashboard')

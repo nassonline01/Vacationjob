@@ -35,6 +35,7 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('Jobs/', views.JobList, name='JobList'),
     path('submit-task/<int:task_id>/', views.submit_task, name='submit_task'),
+    path('track-task/<int:task_id>/', views.track_and_redirect, name='track_task'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

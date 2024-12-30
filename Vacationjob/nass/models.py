@@ -38,7 +38,7 @@ class Task(models.Model):
     payout = models.DecimalField(max_digits=6, decimal_places=2)
     deadline = models.DateTimeField()
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks_created')
-    assigned_to = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, related_name='tasks_assigned')
+    users_assigned = models.ManyToManyField(User, through='TaskUserAssignment', related_name='tasks_assigned')
     proof = models.TextField(blank=True)
     status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('Approved', 'Approved'), ('Rejected', 'Rejected')], default='Pending')
 
@@ -47,10 +47,16 @@ class TaskUserAssignment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     is_claimed = models.BooleanField(default=False)
     proof_submitted = models.BooleanField(default=False)
+    clicked_at = models.DateTimeField(null=True, blank=True)
     proof_screenshot = models.ImageField(upload_to='task_proofs/screenshots/', blank=True, null=True)
     proof_video = models.FileField(upload_to='task_proofs/videos/', blank=True, null=True)
     proof_text = models.TextField(blank=True, null=True)
     actions = models.JSONField(default=dict)
+    submission_status = models.CharField(max_length=20, choices=[
+        ('pending', 'Pending'),
+        ('in_progress', 'In Progress'),
+        ('approved', 'Approved'),
+        ('rejected', 'Rejected')], default='Pending')
 
 class Wallet(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

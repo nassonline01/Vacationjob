@@ -56,6 +56,9 @@
             <div class="task-details mb-4">
                 <p><strong>Task Title:</strong> {{ task.title }}</p>
                 <p><strong>Task Description:</strong> {{ task.description }}</p>
+                <a href="{% url 'track_task' task.id %}?url=https://www.linkedin.com/company/nass-online-practise-pvt-ltd/posts/?feedView=all" target="_blank">
+                    Click to Perform Task
+                </a>
             </div>
 
             <form method="post" enctype="multipart/form-data">
