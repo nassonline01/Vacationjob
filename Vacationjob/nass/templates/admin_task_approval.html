@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Task Approval</title>
+</head>
+<body>
+    <h1>Pending Task Approvals</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Task Description</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+            <tr>
+                <td>{{ task.user }}</td>
+                <td>{{ task.actions }}</td>
+                <td>{{ task.submission_status }}</td>
+                <td>
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <input type="hidden" name="task_id" value="{{ task.id }}">
+                        <button type="submit" name="action" value="approve" style="background-color: green;">Approve</button>
+                        <button type="submit" name="action" value="reject" style="background-color: red;">Reject</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No tasks pending approval.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -24,7 +24,7 @@
         <div class="card mb-4">
             <div class="card-body">
                 <h4>Wallet Balance: ₹{{ wallet.balance }}</h4>
-                <button class="btn btn-primary">Request Withdrawal</button>
+                <button class="btn btn-primary" type="submit">Request Withdrawal</button>
             </div>
         </div>
 
@@ -48,11 +48,11 @@
                     <td>₹{{ assignment.task.payout }}</td>
                     <td>{{ assignment.task.deadline }}</td>
                     <td>
-                        {% if assignment.submission_status == 'Pending' %}
+                        {% if assignment.submission_status == 'pending' %}
                             <span style="color: blue;">Pending</span>
-                        {% elif assignment.submission_status == 'Rejected' %}
+                        {% elif assignment.submission_status == 'rejected' %}
                             <span style="color: red;">Rejected</span>
-                        {% elif assignment.submission_status == 'Approved' %}
+                        {% elif assignment.submission_status == 'approved' %}
                             <span style="color: green;">Approved</span>
                         {% endif %}
                     </td>

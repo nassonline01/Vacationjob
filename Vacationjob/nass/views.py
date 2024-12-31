@@ -4,12 +4,13 @@ from django.views.decorators.cache import never_cache
 from django.contrib.auth import authenticate, login ,logout
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Register,BankDetails,Task,Wallet ,TaskUserAssignment
+from .models import Register,BankDetails,Task,Wallet ,TaskUserAssignment ,WithdrawalRequest
 from django.contrib.auth.decorators import login_required
 from .forms import TaskSubmissionForm
 from django.utils.timezone import now 
 from PIL import Image
 from django.core.exceptions import ValidationError
+
 # Create your views here.
 @never_cache
 def index(request):
@@ -75,7 +76,7 @@ def admin_dashboard(request):
     user = request.user
     assignments = TaskUserAssignment.objects.filter(user=user).select_related('task')
     wallet, created = Wallet.objects.get_or_create(user=user)
-    return render(request, 'dashboard.html', {'assignments': assignments, 'wallet': wallet})
+    return render(request, 'admin.html', {'assignments': assignments, 'wallet': wallet})
 
 
 def user_dashboard(request):
@@ -196,7 +197,7 @@ def track_and_redirect(request, task_id):
 def validate_image(image):
     try:
         img = Image.open(image)
-        img.verify()  # Verify the image file integrity
+        img.verify()  
     except Exception:
         raise ValidationError("Invalid image file.")
     
@@ -205,16 +206,52 @@ def update_wallet(user, amount):
     wallet.balance += amount
     wallet.save()
 
-def update_task_assignment_status(request, assignment_id):
+def admin_task_approval(request):
     if request.method == 'POST':
-        assignment = TaskUserAssignment.objects.get(id=assignment_id)
-        new_status = request.POST.get('status')
+        task_id = request.POST.get('task_id')
+        task = get_object_or_404(TaskUserAssignment, id=task_id)
+        action = request.POST.get('action')
+        if action == "approve" and task.submission_status != 'approved':
+            task.submission_status = 'approved'
+            update_wallet(task.user, task.task.payout)
+        elif action == "reject":
+            task.submission_status = 'rejected'
 
-        if new_status == 'approved' and assignment.status != 'approved':
-            update_wallet(assignment.user, assignment.task.payout)
+        task.save()
+        return redirect('admin_task_approval')
 
-        assignment.status = new_status
-        assignment.save()
+    tasks = TaskUserAssignment.objects.filter(proof_submitted=True)
+    return render(request, 'admin_task_approval.html', {'tasks': tasks})
 
-        messages.success(request, "Task status updated successfully!")
-        return redirect('dashboard')
+def request_withdrawal(request):
+    if request.method == 'POST':
+        user = request.POST['user']  
+        amount = request.POST['amount']
+        bank_account_id = request.POST['bank_account']
+        bank_details = BankDetails.objects.get(id=bank_account_id)
+        WithdrawalRequest.objects.create(
+            user=user,
+            amount=amount,
+            bank_account=f"{bank_details.bank_name} ({bank_details.account_number})"
+        )
+        return redirect('request_withdrawal')
+
+    return render(request, 'request_withdrawal.html')
+
+def admin_withdrawal_requests(request):
+    if request.method == 'POST':
+        request_id = request.POST.get('request_id')
+        action = request.POST.get('action')
+        withdrawal_request = get_object_or_404(WithdrawalRequest, id=request_id)
+
+        if action == 'approve':
+            withdrawal_request.status = 'Approved'
+            # Additional logic: Process payment here
+        elif action == 'reject':
+            withdrawal_request.status = 'Rejected'
+
+        withdrawal_request.save()
+        return redirect('admin_withdrawal_requests')
+
+    requests = WithdrawalRequest.objects.filter(status='Pending')
+    return render(request, 'admin_withdrawal_requests.html', {'requests': requests})

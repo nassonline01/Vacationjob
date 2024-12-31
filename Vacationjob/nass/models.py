@@ -40,7 +40,7 @@ class Task(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks_created')
     users_assigned = models.ManyToManyField(User, through='TaskUserAssignment', related_name='tasks_assigned')
     proof = models.TextField(blank=True)
-    status = models.CharField(max_length=20, choices=[('Pending', 'Pending'), ('Approved', 'Approved'), ('Rejected', 'Rejected')], default='Pending')
+    status = models.CharField(max_length=20, choices=[('pending', 'Pending'),('in_progress', 'In Progress'), ('completed', 'Completed')], default='Pending')
 
 class TaskUserAssignment(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
@@ -61,3 +61,18 @@ class TaskUserAssignment(models.Model):
 class Wallet(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     balance = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+
+class WithdrawalRequest(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE) 
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    bank_account = models.CharField(max_length=100)  
+    status = models.CharField(
+        max_length=20,
+        choices=[('Pending', 'Pending'), ('Approved', 'Approved'), ('Rejected', 'Rejected')],
+        default='Pending'
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user} - {self.amount} - {self.status}"
