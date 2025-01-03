@@ -20,7 +20,7 @@ class Register(models.Model):
     country = models.CharField(max_length=50) 
     hobby = models.CharField(max_length=50) 
     annual_income = models.IntegerField(default=0)
-    languages = models.CharField(max_length=100)
+    languages = models.JSONField(default=list)
     about = models.CharField(max_length=200)
     images = models.ImageField(upload_to='User_Images/')
 

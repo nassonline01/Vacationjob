@@ -5,14 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Withdrawal Requests</title>
 </head>
+<style>
+    .go-back-btn{
+        padding: 12px 25px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 8px;
+        background-color: #0d948d;
+        color: #fff;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: absolute;
+        right: 20%;
+        text-decoration: none;
+    }
+    .go-back-btn:hover {
+        background-color: #076143;
+        transform: translateY(-3px);
+    }
+</style>
 <body>
     <h1>Pending Withdrawal Requests</h1>
+    <a href="javascript:history.back()" class="go-back-btn">Go Back</a>
     <table border="1">
         <thead>
             <tr>
                 <th>User</th>
                 <th>Amount</th>
                 <th>Bank Account</th>
+                <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -22,11 +44,12 @@
                 <td>{{ req.user }}</td>
                 <td>{{ req.amount }}</td>
                 <td>{{ req.bank_account }}</td>
+                <td>{{ req.status }}</td>
                 <td>
                     <form method="POST" action="">
                         {% csrf_token %}
                         <input type="hidden" name="request_id" value="{{ req.id }}">
-                        <button type="submit" name="action" value="approve">Approve</button>
+                        <button type="submit" name="action" value="approve">Approve & Pay</button>
                         <button type="submit" name="action" value="reject">Reject</button>
                     </form>
                 </td>

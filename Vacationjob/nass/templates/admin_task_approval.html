@@ -7,11 +7,19 @@
 </head>
 <body>
     <h1>Pending Task Approvals</h1>
+    <div id="imageModal" style="display: none;">
+        <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+            <img id="proofImage" src="" alt="Task Proof" style="max-width: 100%; max-height: 80vh;">
+            <br>
+            <button onclick="closeModal()">Close</button>
+        </div>
+    </div>
     <table border="1">
         <thead>
             <tr>
                 <th>User</th>
                 <th>Task Description</th>
+                <th>Proof Picture</th>
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -21,6 +29,13 @@
             <tr>
                 <td>{{ task.user }}</td>
                 <td>{{ task.actions }}</td>
+                <td>
+                    {% if task.proof_screenshot %}
+                        <a href="#" onclick="showImage('{{ task.proof_screenshot.url }}')">View Proof</a>
+                    {% else %}
+                        No proof submitted.
+                    {% endif %}
+                </td>
                 <td>{{ task.submission_status }}</td>
                 <td>
                     <form method="POST" action="">
@@ -38,5 +53,20 @@
             {% endfor %}
         </tbody>
     </table>
+    <script>
+
+        function showImage(imageUrl) {
+        // Set the source of the image to the URL passed in
+        document.getElementById("proofImage").src = imageUrl;
+        // Display the modal
+        document.getElementById("imageModal").style.display = "block";
+    }
+
+    function closeModal() {
+        // Hide the modal
+        document.getElementById("imageModal").style.display = "none";
+    }
+
+    </script>
 </body>
 </html>

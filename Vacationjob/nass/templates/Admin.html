@@ -314,7 +314,7 @@
         <div class="logo"></div>
         <div class="button-container">
             <button class="firstbtn">UserLogIn</button>
-            <button class="logout-btn">Logout</button>
+            <a href="{% url 'Logout' %}"><button class="logout-btn">Logout</button></a>
         </div>
         <div class="nav-container">
             <button class="btn" id="dropdownBtn">
@@ -332,7 +332,7 @@
                 </li>    
                 <div class="dropdown">
                     <ul class="nested-dropdown-content" id="nestedDropdownContent">
-                        <li><a href="#">Total SMP</a></li>
+                        <li><a href="{% url 'create_task' %}">Task Creation</a></li>
                         <li><a href="#">Total Promotions</a></li>
                         <li><a href="#">Total Commission</a></li>
                         <li><a href="{% url 'admin_task_approval' %}">Tasks Approval</a></li>

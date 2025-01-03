@@ -33,12 +33,16 @@ urlpatterns = [
     path('AC/',views.Account, name='Account'),
     path('bankDetail/',views.Bank_Details, name='BankDetails'),
     path('dashboard/', views.dashboard, name='dashboard'),
+    path('dashboard/withdraw/', views.Request_withdrawal, name='Request_withdrawal'),
     path('Jobs/', views.JobList, name='JobList'),
     path('submit-task/<int:task_id>/', views.submit_task, name='submit_task'),
     path('track-task/<int:task_id>/', views.track_and_redirect, name='track_task'),
     path('admin-task-approval/', views.admin_task_approval, name='admin_task_approval'),
     path('request-withdrawal/', views.request_withdrawal, name='request_withdrawal'),
     path('admin-withdrawal-requests/', views.admin_withdrawal_requests, name='admin_withdrawal_requests'),
+    path('languages/', views.languages_view, name='languages_view'),
+    path('admin_dash/create-task/', views.create_task, name='create_task'),
+    path('support/', views.support, name='support'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

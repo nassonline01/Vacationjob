@@ -24,7 +24,7 @@
         <div class="card mb-4">
             <div class="card-body">
                 <h4>Wallet Balance: ₹{{ wallet.balance }}</h4>
-                <button class="btn btn-primary" type="submit">Request Withdrawal</button>
+                <button class="btn btn-primary" onclick="ConfirmWithdrawal()">Request Withdrawal</button>
             </div>
         </div>
 
@@ -65,7 +65,17 @@
             </tbody>
         </table>
     </div>
+    <script>
+        function ConfirmWithdrawal(){
+            const userConfirmed = confirm("Are you sure you want to request a withdrawal?");
+            if (userConfirmed) {
+                window.location.href = "{% url 'Request_withdrawal' %}";
+                alert("Withdrawal Requested Successfully.");
+            }
+            else {alert("Withdrawal request canceled.");}
+        }
 
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

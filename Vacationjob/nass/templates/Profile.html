@@ -16,8 +16,8 @@
         }
         .container{
             max-width: 700px;
-            height: 900px;
-            width: 100%;
+            height: 1000px;
+            width: 110%;
             background: #fff;
             padding: 25px 30px;
             border-radius: 5px;
@@ -175,24 +175,27 @@
         form input[type="radio"]{
          display: none;   
         }
-        form .button{
+        form .update-btn{
           height: 45px;
-          margin: 45px 0;  
+          margin: 45px 0; 
         }
-        form .button input{
-            height: 100%;
+        form .update-btn input{
+            position: absolute;
+            right: 50%;
+            bottom: -45%;
             width: 100%;
-            outline: none;
             color: #fff;
             border: none;
             font-size: 18px;
             font-weight: 500;
             border-radius: 5px;
-            letter-spacing: 1px;
-            background: linear-gradient(135deg,#71b7e6, #9b59b6);
+            letter-spacing: 2px;
+            padding: 10px;
+            width: 300px;
+            background: linear-gradient(135deg,#aae671, #146270);
         }
-        form .button input:hover{
-            background: linear-gradient(-135deg,#71b7e6, #9b59b6); 
+        form .update-btn input:hover{
+            background: linear-gradient(-135deg,#083e63, #74d63c); 
         }
         .bk_btn{
             position: relative;
@@ -206,10 +209,26 @@
         .bk_btn:hover{
             background-color: #640f86;
         }
+        .language-box{
+            display: grid;
+            width: 260px;
+            font-size: large;
+        }
+        #language{
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #163486;
+        }
+        #addLanguage{
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #163486;
+            width: 200px;
+        }
     </style>
 </head>
 <body>
-    <form id="registration-form" method="POST" enctype="multipart/form-data">
+    <form id="registration-form" method="POST" enctype="multipart/form-data" >
         {% csrf_token %}
         
         <div class="container">
@@ -238,7 +257,7 @@
             <div class="user-details">
                 <div class="input-box">
                     <span class="details">Full Name</span>
-                    <input type="text" name="name" placeholder="Enter your name" value="{{ Data.first_name }}" required>
+                    <input type="text" name="full_name" placeholder="Enter your name" value="{{ Data.first_name }}" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Email</span>
@@ -330,10 +349,6 @@
                     <input type="text" name="hobby" placeholder="Enter your hobbies" value="{{ Data.hobby }}" required>
                 </div>
                 <div class="input-box">
-                    <span class="details">Languages Known</span>
-                    <input type="text" name="language" placeholder="Enter your income" value="{{ Data.languages }}" required>
-                </div>
-                <div class="input-box">
                     <span class="details">Annuel income</span>
                     <input type="text" name="annual" placeholder="Enter your income" value="{{ Data.annual_income }}" required>
                 </div>
@@ -341,12 +356,26 @@
                     <span class="details">About</span>
                     <textarea placeholder="Enter your description here" rows="4" cols="50" name="about"  required>{{ Data.about }}</textarea>
                 </div>
+                <div class="language-box">
+                        <div>
+                            <label for="language">Language:</label><br><br>
+                            <input type="text" id="language" name="language" placeholder="Enter Language">
+                        </div>
+                        <div class="Proficiency-chkbox">
+                            <label>Proficiency:</label><br>
+                            <label><input type="checkbox" name="proficiency" value="Read"> Read</label>
+                            <label><input type="checkbox" name="proficiency" value="Speak"> Speak</label><br>
+                            <label><input type="checkbox" name="proficiency" value="Write"> Write</label>
+                            <label><input type="checkbox" name="proficiency" value="Professional"> Professional</label>
+                        </div>
+                        <button id="addLanguage" type="button">Add Language</button>
+                        
+                        <p>Languages Known:</p>
+                        <div id="languageList"></div>
+                </div>
             
-                
-            </div>
-            
-            <div class="button">
-                <input type="submit" value="Update">
+            <div class="update-btn">
+                <input type="submit" name="action" value="update">
             </div>
 
 
@@ -354,27 +383,109 @@
     </form>
 
     <script>
-            // Function to trigger the file input click
-            function triggerFileUpload() {
-                document.getElementById("fileUpload").click();
+        // Function to trigger the file input click
+        function triggerFileUpload() {
+            document.getElementById("fileUpload").click();
+        }
+
+        // Function to preview the uploaded profile photo
+        function previewProfilePhoto() {
+            const file = document.getElementById("fileUpload").files[0];
+            const reader = new FileReader();
+
+            reader.onloadend = function () {
+                document.getElementById("profilePhoto").src = reader.result;
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }else {
+                alert("No file selected or invalid file type!");
             }
+        }
 
-            // Function to preview the uploaded profile photo
-            function previewProfilePhoto() {
-                const file = document.getElementById("fileUpload").files[0];
-                const reader = new FileReader();
+        const csrfToken = "{{ csrf_token }}";
 
-                reader.onloadend = function () {
-                    document.getElementById("profilePhoto").src = reader.result;
-                };
+    // Fetch and display saved languages
+    const fetchLanguages = () => {
+      fetch("/languages/", { method: "GET" })
+        .then((response) => response.json())
+        .then((data) => {
+          renderLanguageList(data.languages || []);
+        })
+        .catch((error) => console.error("Error:", error));
+    };
 
-                if (file) {
-                    reader.readAsDataURL(file);
-                }else {
-                    alert("No file selected or invalid file type!");
-                }
+    const renderLanguageList = (languages) => {
+      const languageList = document.getElementById("languageList");
+      languageList.innerHTML = ""; // Clear the list
+      languages.forEach(({ language, proficiencies }, index) => {
+        const listItem = document.createElement("div");
+        listItem.innerHTML = `
+          <strong>${language}</strong>: ${proficiencies.join(", ")}
+          <button onclick="deleteLanguage(${index})">❌</button>
+        `;
+        languageList.appendChild(listItem);
+      });
+    };
+
+    // Add a language
+    document.getElementById("addLanguage").addEventListener("click", () => {
+      const language = document.getElementById("language").value;
+      const checkboxes = document.querySelectorAll('input[name="proficiency"]:checked');
+      const proficiencies = Array.from(checkboxes).map((cb) => cb.value);
+
+      if (language && proficiencies.length) { 
+        fetch("/languages/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrfToken,
+          },
+          body: JSON.stringify({ language, proficiency: proficiencies }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.message) {
+              renderLanguageList(data.languages);
+              document.getElementById("language").value = "";
+              checkboxes.forEach((cb) => (cb.checked = false));
+            } else {
+              alert(data.error || "Failed to add language.");
             }
+          })
+          .catch((error) => console.error("Error:", error));
+      } else {
+        alert("Please enter a language and select at least one proficiency.");
+      }
+    });
+
+    // Delete a language
+    const deleteLanguage = (index) => {
+      fetch("/languages/", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": csrfToken,
+        },
+        body: JSON.stringify({ index }),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.message) {
+            renderLanguageList(data.languages);
+          } else {
+            alert(data.error || "Failed to delete language.");
+          }
+        })
+        .catch((error) => console.error("Error:", error));
+    };
+
+    // Initial fetch of languages
+    fetchLanguages();
+
+
     </script>
 </body>
 </html>
-
+                                                                                                                                                                                            

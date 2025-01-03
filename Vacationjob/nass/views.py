@@ -6,10 +6,12 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Register,BankDetails,Task,Wallet ,TaskUserAssignment ,WithdrawalRequest
 from django.contrib.auth.decorators import login_required
-from .forms import TaskSubmissionForm
+from .forms import TaskSubmissionForm,TaskForm
 from django.utils.timezone import now 
 from PIL import Image
 from django.core.exceptions import ValidationError
+from django.http import JsonResponse
+import json
 
 # Create your views here.
 @never_cache
@@ -95,29 +97,94 @@ def profile_view(request):
     except:
         return HttpResponse("<script>window.alert('Problem with user');window.location.href=('/userprofile/');</script>")
     if request.method == 'POST':
-        person.first_name = request.POST['name']
-        person.email = request.POST['email']
-        person.phone = request.POST['phone']
-        person.birth_date = request.POST['dob']
-        person.gender = request.POST['gender']
-        person.status = request.POST['status']
-        person.qualification = request.POST['qualification']
-        person.address = request.POST['address']
-        person.landmark = request.POST['land']
-        person.pincode = request.POST['pin']
-        person.country = request.POST['country']
-        person.state = request.POST['state']
-        person.city = request.POST['city']
-        person.hobby = request.POST['hobby']
-        person.languages = request.POST['language']
-        person.annual_income = request.POST['annual']
-        person.about = request.POST['about']
-        person.images = request.FILES.get('profile_photo')
-        person.save()
-        return HttpResponse("<script>window.alert('Congrats...! your Profile has been Updated');window.location.href=('/user/');</script>")
+        action = request.POST.get('action')
+        if action == 'update':
+            person.first_name = request.POST['full_name']
+            person.email = request.POST['email']
+            person.phone = request.POST['phone']
+            person.birth_date = request.POST['dob']
+            person.gender = request.POST['gender']
+            person.status = request.POST['status']
+            person.qualification = request.POST['qualification']
+            person.address = request.POST['address']
+            person.landmark = request.POST['land']
+            person.pincode = request.POST['pin']
+            person.country = request.POST['country']
+            person.state = request.POST['state']
+            person.city = request.POST['city']
+            person.hobby = request.POST['hobby']
+            person.annual_income = request.POST['annual']
+            person.about = request.POST['about']
+            person.images = request.FILES.get('profile_photo')
+            person.save()
+            return HttpResponse("<script>window.alert('Congrats...! your Profile has been Updated');window.location.href=('/user/');</script>")
+        return render(request, 'Profile.html',{'Data':person})
     else:
         return render(request, 'Profile.html',{'Data':person})
-    
+
+def languages_view(request):
+    person = get_object_or_404(Register, user=request.user)
+
+    if request.method == "POST":
+        # Add a new language
+        data = json.loads(request.body)
+        language = data.get("language")
+        proficiencies = data.get("proficiency")
+
+        if not language or not proficiencies:
+            return JsonResponse({"error": "Invalid input. Both language and proficiencies are required."}, status=400)
+
+        languages = person.languages or []
+        languages.append({"language": language, "proficiencies": proficiencies})
+        person.languages = languages
+        person.save()
+
+        return JsonResponse({"message": "Language added successfully.", "languages": languages})
+
+    elif request.method == "PUT":
+        # Update an existing language
+        data = json.loads(request.body)
+        language = data.get("language")
+        proficiencies = data.get("proficiency")
+        index = data.get("index")  # The index of the language to update
+
+        if not language or not proficiencies or index is None:
+            return JsonResponse({"error": "Invalid input. Language, proficiencies, and index are required."}, status=400)
+
+        languages = person.languages or []
+        if index < 0 or index >= len(languages):
+            return JsonResponse({"error": "Invalid index."}, status=400)
+
+        languages[index] = {"language": language, "proficiencies": proficiencies}
+        person.languages = languages
+        person.save()
+
+        return JsonResponse({"message": "Language updated successfully.", "languages": languages})
+
+    elif request.method == "DELETE":
+        # Delete a language
+        data = json.loads(request.body)
+        index = data.get("index") 
+
+        if index is None:
+            return JsonResponse({"error": "Index is required."}, status=400)
+
+        languages = person.languages or []
+        if index < 0 or index >= len(languages):
+            return JsonResponse({"error": "Invalid index."}, status=400)
+
+        languages.pop(index)
+        person.languages = languages
+        person.save()
+
+        return JsonResponse({"message": "Language deleted successfully.", "languages": languages})
+
+    elif request.method == "GET":
+        # Fetch all languages
+        return JsonResponse({"languages": person.languages or []})
+
+    return JsonResponse({"error": "Invalid request method."}, status=405)
+
 def Logout(request):
     logout(request)
     return HttpResponse("<script>window.alert('Log Out Success');window.location.href=('/login/');</script>")
@@ -146,6 +213,18 @@ def dashboard(request):
     assignments = TaskUserAssignment.objects.filter(user=user).select_related('task')
     wallet, created = Wallet.objects.get_or_create(user=user)
     return render(request, 'dashboard.html', {'assignments': assignments, 'wallet': wallet})   
+
+def Request_withdrawal(request):
+    user=request.user
+    wallet = Wallet.objects.get(user=user)
+    bank = BankDetails.objects.get(user=user)
+    amount = wallet.balance
+    bank_details = "A/C no: " + bank.account_number + " IFSC: " + bank.ifsc_code
+    withdrawal = WithdrawalRequest.objects.create(
+        user=user, amount=amount, bank_account=bank_details, status='Pending'
+        )
+    withdrawal.save()
+    return redirect('dashboard') 
 
 def JobList(request):
     # tasks = Task.objects.filter(assigned_to__isnull=True).order_by('deadline')  
@@ -255,3 +334,16 @@ def admin_withdrawal_requests(request):
 
     requests = WithdrawalRequest.objects.filter(status='Pending')
     return render(request, 'admin_withdrawal_requests.html', {'requests': requests})
+
+def create_task(request):
+    if request.method == "POST":
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('admin_dashboard')  
+    else:
+        form = TaskForm()
+    return render(request, 'create_task.html', {'form': form})
+
+def support(request):
+    return render(request, 'support.html')
